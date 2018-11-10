@@ -1,0 +1,3 @@
+F:\RimWorld\64 Bit\Mods\[1.0] Sandy's Detailed RPG Inventory\Assemblies\Sandy's Detailed RPG Inventory.dll
+F:\RimWorld\64 Bit\Mods\[1.0] Sandy's Detailed RPG Inventory\Source\Sandy's Detailed RPG Inventory\obj\Debug\Sandy's Detailed RPG Inventory.csprojResolveAssemblyReference.cache
+F:\RimWorld\64 Bit\Mods\[1.0] Sandy's Detailed RPG Inventory\Source\Sandy's Detailed RPG Inventory\obj\Debug\Sandy's Detailed RPG Inventory.dll
