@@ -155,21 +155,33 @@ namespace Sandy_Detailed_RPG_Inventory
 				//Hats
 				Rect newRect1 = new Rect(150f, 10f, 64f, 64f);
 				GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect1 = newRect1.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect1, "Sandy_Head".Translate());
 				//Vests
 				Rect newRect2 = new Rect(76f, 94f, 64f, 64f);
 				GUI.DrawTexture(newRect2, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect2 = newRect2.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect2, "Sandy_TorsoMiddle".Translate());
 				//Shirts
 				Rect newRect3 = new Rect(150f, 94f, 64f, 64f);
 				GUI.DrawTexture(newRect3, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect3 = newRect3.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect3, "Sandy_TorsoOnSkin".Translate());
 				//Dusters
 				Rect newRect4 = new Rect(224f, 94f, 64f, 64f);
 				GUI.DrawTexture(newRect4, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect4 = newRect4.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect4, "Sandy_TorsoShell".Translate());
 				//Belts
 				Rect newRect5 = new Rect(150f, 178f, 64f, 64f);
 				GUI.DrawTexture(newRect5, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect5 = newRect5.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect5, "Sandy_Belt".Translate());
 				//Pants
 				Rect newRect6 = new Rect(150f, 262f, 64f, 64f);
 				GUI.DrawTexture(newRect6, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+				Rect tipRect6 = newRect6.ContractedBy(12f);
+				TooltipHandler.TipRegion(tipRect6, "Sandy_Pants".Translate());
 				Color color = new Color(1f, 1f, 1f, 1f);
 				GUI.color = color;
 				Rect PawnRect = new Rect(374f, 172f, 128f, 128f);

@@ -4,5 +4,11 @@
   <SandyMassCarried>Переносимый вес</SandyMassCarried>
   <SandyMassValue> {0} / {1} кг.</SandyMassValue>
   <Sandy_ViewList>Показать списком</Sandy_ViewList>
+  <Sandy_Head>Голова Overhead</Sandy_Head>
+  <Sandy_TorsoMiddle>торс Middle</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>торс OnSkin</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>торс Shell</Sandy_TorsoShell>
+  <Sandy_Belt>ремень</Sandy_Belt>
+  <Sandy_Pants>Ноги OnSkin</Sandy_Pants>
 
 </LanguageData>
