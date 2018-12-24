@@ -1,0 +1,3 @@
+F:\Modding\Sandy's Mods\[1.0] RPG Style Inventory [V2.3]\[1.0] RPG Style Inventory [V2.3]\Assemblies\Sandy_Detailed_RPG_Inventory.dll
+F:\Modding\Sandy's Mods\[1.0] RPG Style Inventory [V2.3]\[1.0] RPG Style Inventory [V2.3]\Source\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csprojResolveAssemblyReference.cache
+F:\Modding\Sandy's Mods\[1.0] RPG Style Inventory [V2.3]\[1.0] RPG Style Inventory [V2.3]\Source\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.dll
