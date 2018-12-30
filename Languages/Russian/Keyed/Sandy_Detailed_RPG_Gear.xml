@@ -2,13 +2,13 @@
 <LanguageData>
 
   <SandyMassCarried>Переносимый вес</SandyMassCarried>
-  <SandyMassValue> {0} / {1} кг.</SandyMassValue>
+  <SandyMassValue>{0} / {1} кг.</SandyMassValue>
   <Sandy_ViewList>Показать списком</Sandy_ViewList>
-  <Sandy_Head>Голова Overhead</Sandy_Head>
-  <Sandy_TorsoMiddle>торс Middle</Sandy_TorsoMiddle>
-  <Sandy_TorsoOnSkin>торс OnSkin</Sandy_TorsoOnSkin>
-  <Sandy_TorsoShell>торс Shell</Sandy_TorsoShell>
-  <Sandy_Belt>ремень</Sandy_Belt>
-  <Sandy_Pants>Ноги OnSkin</Sandy_Pants>
+  <Sandy_Head>Головной убор</Sandy_Head>
+  <Sandy_TorsoMiddle>Верхняя одежда</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>Верхняя нательная одежда</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>Броня</Sandy_TorsoShell>
+  <Sandy_Belt>Ремень</Sandy_Belt>
+  <Sandy_Pants>Штаны</Sandy_Pants>
 
 </LanguageData>
