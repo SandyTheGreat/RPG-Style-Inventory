@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <SandyMassCarried>当前负重</SandyMassCarried>
+  <SandyMassValue> {0} / {1} kg</SandyMassValue>
+  <Sandy_ViewList>显示列表</Sandy_ViewList>
+  <Sandy_Head>头 Overhead</Sandy_Head>
+  <Sandy_TorsoMiddle>躯干 Middle</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>躯干 OnSkin</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>躯干 Shell</Sandy_TorsoShell>
+  <Sandy_Belt>带</Sandy_Belt>
+  <Sandy_Pants>腿 OnSkin</Sandy_Pants>
+
+</LanguageData>

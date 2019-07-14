@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <Patch>
+
 	<Operation Class="PatchOperationReplace">
 		<xpath>Defs/ThingDef[thingClass="Pawn"]/inspectorTabs/li[text()='ITab_Pawn_Gear']</xpath>
 		<value>
 				<li>Sandy_Detailed_RPG_Inventory.Sandy_Detailed_RPG_GearTab</li>
 		</value>
 	</Operation>
+
 </Patch>

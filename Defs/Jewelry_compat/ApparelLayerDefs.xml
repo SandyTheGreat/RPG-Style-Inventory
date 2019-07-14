@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+  <ApparelLayerDef>
+    <defName>Accessories</defName>
+    <label>accessories</label>
+    <drawOrder>350</drawOrder>
+  </ApparelLayerDef>
+</Defs>
