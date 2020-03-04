@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ModMetaData>
-	<name>[1.0] RPG Style Inventory</name>
+	<name>RPG Style Inventory</name>
 	<author>Sandy</author>
-	<supportedVersions><li>1.0</li></supportedVersions>
-	<description>[V3.2] RPG style representation of the pawn's Gear Tab.
-			New features: Support for Jewelry mod.
-	</description>
+	<supportedVersions>
+      <li>1.0</li>
+      <li>1.1</li>
+    </supportedVersions>
+	<packageId>Sandy.RPGStyleInventory</packageId>
+	<description>[V3.3.1] RPG style representation of the pawn's Gear Tab.</description>
 </ModMetaData>
