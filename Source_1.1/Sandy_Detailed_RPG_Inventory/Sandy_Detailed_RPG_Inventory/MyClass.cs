@@ -282,6 +282,10 @@ namespace Sandy_Detailed_RPG_Inventory
 							Rect newRectBe = new Rect(150f, 222f, 64f, 64f);
 							this.DrawThingRow1(newRectBe, current2, false);
 							break;
+						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Torso) && a.layers.Contains(ApparelLayerDefOf.Belt)):
+							Rect newRectBe = new Rect(76f, 222f, 64f, 64f);
+							this.DrawThingRow1(newRectBe, current2, false);
+							break;
 
 						//Jetpack
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Waist) && a.layers.Contains(ApparelLayerDefOf.Shell)):
