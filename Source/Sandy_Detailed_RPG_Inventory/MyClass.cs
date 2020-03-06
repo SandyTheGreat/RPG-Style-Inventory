@@ -276,6 +276,11 @@ namespace Sandy_Detailed_RPG_Inventory
 						this.DrawThingRow1(newRect, current2, false);
 					}
 					//Belt
+					else if (current2.def.apparel.layers.Contains(ApparelLayerDefOf.Belt) && current2.def.apparel.bodyPartGroups.Contains(Sandy_Gear_DefOf.Shoulders))
+					{
+						Rect newRect = new Rect(76f, 222f, 64f, 64f);
+						this.DrawThingRow1(newRect, current2, false);
+					}
 					else if (current2.def.apparel.layers.Contains(ApparelLayerDefOf.Belt))
 					{
 						Rect newRect = new Rect(150f, 222f, 64f, 64f);
