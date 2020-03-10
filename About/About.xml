@@ -8,5 +8,6 @@
       <li>1.1</li>
     </supportedVersions>
 	<packageId>Sandy.RPGStyleInventory</packageId>
-	<description>[V3.3.1] RPG style representation of the pawn's Gear Tab.</description>
+	<description>RPG style representation of the pawn's Gear Tab.
+[V3.3.2] - Added settings to adjust gear tab size.</description>
 </ModMetaData>
