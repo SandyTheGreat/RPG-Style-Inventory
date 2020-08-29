@@ -481,9 +481,15 @@ namespace Sandy_Detailed_RPG_Inventory
 							break;
 
 						case ApparelProperties a when (a.bodyPartGroups.Contains(BodyPartGroupDefOf.LeftHand) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
-							Rect newRectLHa = new Rect(10f, 0f, 56f, 56f);
+							Rect newRectLHa = new Rect(76f, 74f, 56f, 56f);
 							GUI.DrawTexture(newRectLHa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectLHa, current2, false);
+							break;
+
+						case ApparelProperties a when (a.bodyPartGroups.Contains(BodyPartGroupDefOf.RightHand) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
+							Rect newRectRHa = new Rect(298f, 74f, 56f, 56f);
+							GUI.DrawTexture(newRectRHa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+							this.DrawThingRow1(newRectRHa, current2, false);
 							break;
 					}
 				}
