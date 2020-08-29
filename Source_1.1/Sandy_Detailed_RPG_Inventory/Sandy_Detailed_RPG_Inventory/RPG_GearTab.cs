@@ -469,7 +469,7 @@ namespace Sandy_Detailed_RPG_Inventory
 						//this part add jewelry support
 						//They currently overlape with some apparello 2 stuff
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Neck) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
-							Rect newRectNa = new Rect(76f, 74f, 64f, 64f);
+							Rect newRectNa = new Rect(10f, 0f, 64f, 64f);
 							GUI.DrawTexture(newRectNa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectNa, current2, false);
 							break;
