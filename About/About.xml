@@ -6,8 +6,11 @@
 	<supportedVersions>
       <li>1.0</li>
       <li>1.1</li>
+	  <li>1.2</li>
     </supportedVersions>
 	<packageId>Sandy.RPGStyleInventory</packageId>
-	<description>RPG style representation of the pawn's Gear Tab.
-[V3.3.2] - Added settings to adjust gear tab size.</description>
+	<description>[V4.0]RPG style representation of the pawn's Gear Tab.
+	
+	Well, no longer RPG styled, but more like visual representation of the Gear Tab.
+	The mod is remade in such a way that it can support almost all of the apparel mods.</description>
 </ModMetaData>
