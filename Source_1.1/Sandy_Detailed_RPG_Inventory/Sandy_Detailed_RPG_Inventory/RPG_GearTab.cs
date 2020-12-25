@@ -469,7 +469,7 @@ namespace Sandy_Detailed_RPG_Inventory
 						//this part add jewelry support
 						//They currently overlape with some apparello 2 stuff
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Neck) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
-							Rect newRectNa = new Rect(76f, 74f, 64f, 64f);
+							Rect newRectNa = new Rect(10f, 0f, 64f, 64f);
 							GUI.DrawTexture(newRectNa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectNa, current2, false);
 							break;
@@ -481,9 +481,15 @@ namespace Sandy_Detailed_RPG_Inventory
 							break;
 
 						case ApparelProperties a when (a.bodyPartGroups.Contains(BodyPartGroupDefOf.LeftHand) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
-							Rect newRectLHa = new Rect(10f, 0f, 56f, 56f);
+							Rect newRectLHa = new Rect(76f, 74f, 56f, 56f);
 							GUI.DrawTexture(newRectLHa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectLHa, current2, false);
+							break;
+
+						case ApparelProperties a when (a.bodyPartGroups.Contains(BodyPartGroupDefOf.RightHand) && (a.layers.Contains(Sandy_Gear_DefOf.Accessories))):
+							Rect newRectRHa = new Rect(298f, 74f, 56f, 56f);
+							GUI.DrawTexture(newRectRHa, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+							this.DrawThingRow1(newRectRHa, current2, false);
 							break;
 					}
 				}
