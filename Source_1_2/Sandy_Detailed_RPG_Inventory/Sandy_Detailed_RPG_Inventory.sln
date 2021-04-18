@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.30804.86
+VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandy_Detailed_RPG_Inventory", "Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory.csproj", "{DA298B9D-7E19-4A1B-80EB-806B4109DDEE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandy_Detailed_RPG_Inventory", "Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory.csproj", "{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DA298B9D-7E19-4A1B-80EB-806B4109DDEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DA298B9D-7E19-4A1B-80EB-806B4109DDEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DA298B9D-7E19-4A1B-80EB-806B4109DDEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DA298B9D-7E19-4A1B-80EB-806B4109DDEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {9F857051-F527-4F52-93F2-ECCDF11AA1C6}
+		SolutionGuid = {B3470BC0-25E8-4770-9245-C762CFD63FB2}
 	EndGlobalSection
 EndGlobal

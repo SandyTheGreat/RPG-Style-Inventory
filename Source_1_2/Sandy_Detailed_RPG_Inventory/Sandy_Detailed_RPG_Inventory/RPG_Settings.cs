@@ -10,12 +10,12 @@ namespace Sandy_Detailed_RPG_Inventory
     {
         public static float rpgTabHeight = 500f;
 
-        public static float rpgTabWidth = 580f;
+        public static float rpgTabWidth = 700f;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref rpgTabHeight, "rpgTabHeight", 500f);
-            Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 580f);
+            Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 700f);
             base.ExposeData();
         }
     }

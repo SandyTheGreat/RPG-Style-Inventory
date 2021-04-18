@@ -32,7 +32,7 @@ namespace Sandy_Detailed_RPG_Inventory
             return RWoMIsActive;
         }
 
-        /*public static bool HasCloak(Pawn p)
+        public static bool HasCloak(Pawn p)
         {
             bool flag = false;
             if (IsRWoMActive())
@@ -197,7 +197,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 }
             }
             return flag;
-        }*/
+        }
 
         public static StatDef GetHarmonyStatDef()
         {
