@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sandy_Detailed_RPG_Inventory", "Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory.csproj", "{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2098C897-A5AF-42AD-8316-FD2A04DBEE6B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B3470BC0-25E8-4770-9245-C762CFD63FB2}
+	EndGlobalSection
+EndGlobal

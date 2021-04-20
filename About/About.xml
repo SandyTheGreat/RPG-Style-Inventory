@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <ModMetaData>
-	<name>[1.0] RPG Style Inventory</name>
+	<name>RPG Style Inventory</name>
 	<author>Sandy</author>
-	<targetVersion>1.0.0</targetVersion>
-	<description>[V3.0] Displays your pawn's Gear tab in RPG style</description>
+	<supportedVersions>
+      <li>1.0</li>
+      <li>1.1</li>
+	  <li>1.2</li>
+    </supportedVersions>
+	<packageId>Sandy.RPGStyleInventory</packageId>
+	<description>[V4.1]RPG style representation of the pawn's Gear Tab.</description>
 </ModMetaData>

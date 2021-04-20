@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LanguageData>
 
   <SandyMassCarried>Mass carried</SandyMassCarried>
@@ -10,5 +11,9 @@
   <Sandy_TorsoShell>Torso Shell</Sandy_TorsoShell>
   <Sandy_Belt>Belt</Sandy_Belt>
   <Sandy_Pants>Legs OnSkin</Sandy_Pants>
+  <RPG_Inventory_Width>Gear Tab - Width</RPG_Inventory_Width>
+  <RPG_Inventory_Height>Gear Tab - Height</RPG_Inventory_Height>
+  <RPG_Style_Inventory_Title>RPG Style Inventory</RPG_Style_Inventory_Title>
+  <RPG_Style_Inventory_ArmorHarmony>Magic Defense</RPG_Style_Inventory_ArmorHarmony>
 
 </LanguageData>

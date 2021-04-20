@@ -12,7 +12,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
 [assembly: AssemblyProduct ("Sandy_Detailed_RPG_Inventory")]
-[assembly: AssemblyCopyright ("Copyright 2018")]
+[assembly: AssemblyCopyright ("Copyright 2019")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // This sets the default COM visibility of types in the assembly to invisible.

@@ -1,0 +1,7 @@
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\bin\Debug\net472\Sandy_Detailed_RPG_Inventory.dll
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\bin\Debug\net472\Sandy_Detailed_RPG_Inventory.pdb
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\net472\Sandy_Detailed_RPG_Inventory.AssemblyInfoInputs.cache
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\net472\Sandy_Detailed_RPG_Inventory.AssemblyInfo.cs
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\net472\Sandy_Detailed_RPG_Inventory.dll
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\net472\Sandy_Detailed_RPG_Inventory.pdb
+D:\Santhosh\Modding\RPG Style Inventory\Source_1.1\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\net472\Sandy_Detailed_RPG_Inventory.csprojAssemblyReference.cache
