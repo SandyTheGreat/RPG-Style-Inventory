@@ -288,11 +288,11 @@ namespace Sandy_Detailed_RPG_Inventory
                     this.TryDrawMassInfo(ref num, viewRect.width);
                     this.TryDrawComfyTemperatureRange(ref num, viewRect.width);
                 }
-                //inventory
-                if (this.ShouldShowInventory(this.SelPawnForGear))
-                {
-                    this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
-                }
+            }
+            //inventory
+            if (this.ShouldShowInventory(this.SelPawnForGear))
+            {
+                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
             }
             //
 			if (Event.current.type == EventType.Layout)
@@ -810,10 +810,10 @@ namespace Sandy_Detailed_RPG_Inventory
                 }
             }
             //inventory
-            if (this.ShouldShowInventory(this.SelPawnForGear))
-            {
-                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
-            }
+            //if (this.ShouldShowInventory(this.SelPawnForGear))
+            //{
+            //    this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
+            //}
         }
 
         protected void DrawInventory(IEnumerable<Thing> list, string title, Rect viewRect, ref float num, bool inventory = false)
