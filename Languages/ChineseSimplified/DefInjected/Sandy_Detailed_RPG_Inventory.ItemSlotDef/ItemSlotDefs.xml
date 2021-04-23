@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<LanguageData>
+
+	<ItemSlotTorsoOnSkin.label>躯干 OnSkin</ItemSlotTorsoOnSkin.label>
+	<ItemSlotTorsoShell.label>躯干 Shell</ItemSlotTorsoShell.label>
+	<ItemSlotTorsoMiddle.label>躯干 Middle</ItemSlotTorsoMiddle.label>
+	<ItemSlotHead.label>头 Overhead</ItemSlotHead.label>
+	<ItemSlotWaistBelt.label>带</ItemSlotWaistBelt.label>
+	<ItemSlotLegsSkin.label>腿 OnSkin</ItemSlotLegsSkin.label>
+
+</LanguageData>
