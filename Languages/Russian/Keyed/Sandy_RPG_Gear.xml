@@ -2,7 +2,7 @@
 <LanguageData>
 
   <SandyMassCarried>Переносимый вес</SandyMassCarried>
-  <SandyMassValue> {0} / {1} кг.</SandyMassValue>
+  <SandyMassValue>{0} / {1} кг.</SandyMassValue>
   <Sandy_ViewList>Показать списком</Sandy_ViewList>
   <Sandy_Head>Головной убор</Sandy_Head>
   <Sandy_TorsoMiddle>Верхняя одежда</Sandy_TorsoMiddle>

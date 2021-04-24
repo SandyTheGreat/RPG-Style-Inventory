@@ -5,7 +5,7 @@
   <!-- EN: Mass carried -->
   <SandyMassCarried>Nosnost</SandyMassCarried>
   <!-- EN: {0} / {1} kg -->
-  <SandyMassValue> {0} / {1} kg</SandyMassValue>
+  <SandyMassValue>{0} / {1} kg</SandyMassValue>
   <!-- EN: Show list -->
   <Sandy_ViewList>Zobrazit seznam</Sandy_ViewList>
   <!-- EN: Head Overhead -->

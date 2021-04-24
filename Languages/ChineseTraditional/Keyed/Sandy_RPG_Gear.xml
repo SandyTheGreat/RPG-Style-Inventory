@@ -2,7 +2,7 @@
 <LanguageData>
 
   <SandyMassCarried>當前負重</SandyMassCarried>
-  <SandyMassValue> {0} / {1} 公斤</SandyMassValue>
+  <SandyMassValue>{0} / {1} 公斤</SandyMassValue>
   <Sandy_ViewList>顯示列表</Sandy_ViewList>
   <Sandy_Head>頭 Overhead</Sandy_Head>
   <Sandy_TorsoMiddle>軀幹 Middle</Sandy_TorsoMiddle>

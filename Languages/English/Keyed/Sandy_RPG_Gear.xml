@@ -2,7 +2,7 @@
 
 <LanguageData>
   <SandyMassCarried>Mass carried</SandyMassCarried>
-  <SandyMassValue> {0} / {1} kg</SandyMassValue>
+  <SandyMassValue>{0} / {1} kg</SandyMassValue>
   <Sandy_ViewList>Show list</Sandy_ViewList>
   <RPG_Inventory_Width>Gear Tab - Width</RPG_Inventory_Width>
   <RPG_Inventory_Height>Gear Tab - Height</RPG_Inventory_Height>
