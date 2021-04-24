@@ -349,7 +349,11 @@ namespace Sandy_Detailed_RPG_Inventory
                 if (this.CanControl && (inventory || this.CanControlColonist || (this.SelPawnForGear.Spawned && !this.SelPawnForGear.Map.IsPlayerHome)))
                 {
                     Rect rect2 = new Rect(rect.xMax - statIconSize, rect.y, statIconSize, statIconSize);
-                    bool flag2 = this.SelPawnForGear.IsQuestLodger() && !(thing is Apparel);
+                    bool flag2 = false;// this.SelPawnForGear.IsQuestLodger() && !(thing is Apparel);
+                    if (this.SelPawnForGear.IsQuestLodger())
+                    {
+                        flag2 = (inventory || !EquipmentUtility.QuestLodgerCanUnequip(thing, this.SelPawnForGear));
+                    }
                     Apparel apparel;
                     bool flag3 = (apparel = (thing as Apparel)) != null && this.SelPawnForGear.apparel != null && this.SelPawnForGear.apparel.IsLocked(apparel);
                     flag = (flag2 || flag3);
@@ -466,7 +470,7 @@ namespace Sandy_Detailed_RPG_Inventory
 			Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
 			GUI.DrawTexture(rect1, image);
 			TooltipHandler.TipRegion(rect1, label);
-			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize, statIconSize);
+			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
 			Widgets.Label(rect2, num.ToStringPercent());
             top += stdThingRowHeight;
         }
@@ -482,7 +486,7 @@ namespace Sandy_Detailed_RPG_Inventory
 			TooltipHandler.TipRegion(rect1, "SandyMassCarried".Translate());
 			float num = MassUtility.GearAndInventoryMass(this.SelPawnForGear);
 			float num2 = MassUtility.Capacity(this.SelPawnForGear, null);
-			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize, statIconSize);
+			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
 			Widgets.Label(rect2, "SandyMassValue".Translate(num.ToString("0.##"), num2.ToString("0.##")));
             top += stdThingRowHeight;
         }
@@ -497,14 +501,14 @@ namespace Sandy_Detailed_RPG_Inventory
 			GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Min_Temperature", true));
 			TooltipHandler.TipRegion(rect1, "ComfyTemperatureRange".Translate());
 			float statValue = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMin, true);
-			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize, statIconSize);
+			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
 			Widgets.Label(rect2, statValue.ToStringTemperature("F0"));
             top += stdThingRowHeight;
             rect1 = new Rect(left, top, statIconSize, statIconSize);
 			GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Max_Temperature", true));
 			TooltipHandler.TipRegion(rect1, "ComfyTemperatureRange".Translate());
 			float statValue2 = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMax, true);
-			rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize, statIconSize);
+			rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
 			Widgets.Label(rect2, statValue2.ToStringTemperature("F0"));
             top += stdThingRowHeight;
         }
