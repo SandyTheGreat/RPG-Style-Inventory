@@ -16,10 +16,13 @@ namespace Sandy_Detailed_RPG_Inventory
         public int xPos = int.MinValue;
         public int yPos = int.MinValue;
         public int validationOrder = 100;
+        public bool placeholder = false;
         public List<ApparelLayerDef> apparelLayers = new List<ApparelLayerDef>();
         public List<BodyPartGroupDef> bodyPartGroups = new List<BodyPartGroupDef>();
         [Unsaved(false)]
         public int listid = int.MinValue;
+        [Unsaved(false)]
+        public bool hidden = false;
 
         public bool Valid(ApparelProperties apparelProperties)
         {
@@ -266,7 +269,7 @@ namespace Sandy_Detailed_RPG_Inventory
                         List<ItemSlotDef> slotlist = activeSlots;
                         foreach (ItemSlotDef slot in slotlist)
                         {
-                            if (!usedSlots.Contains(slot.listid))
+                            if (!slot.hidden && !usedSlots.Contains(slot.listid))
                             {
                                 Rect apRect = new Rect(10f + xidx[slot.xPos] * 74f, yidx[slot.yPos] * 74f, 64f, 64f);
                                 GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
@@ -848,18 +851,39 @@ namespace Sandy_Detailed_RPG_Inventory
             dict = new Dictionary<ThingDef, ItemSlotDef>();
             activeSlots = new List<ItemSlotDef>();
             slots = DefDatabase<ItemSlotDef>.AllDefsListForReading.OrderBy(x => x.validationOrder).ToList();
-            //get max values on the grid
+            //getting max values on the grid
             foreach (var slot in slots)
             {
                 maxrow = Math.Max(maxrow, slot.yPos);
                 maxcolumn = Math.Max(maxcolumn, slot.xPos);
+            }
+            //checking for overlaping slots
+            ItemSlotDef[,] slotTemp = new ItemSlotDef[maxcolumn + 1, maxrow + 1];
+            foreach (var slot in slots)
+            {
+                if (slotTemp[slot.xPos, slot.yPos] == null)
+                {
+                    slotTemp[slot.xPos, slot.yPos] = slot;
+                }
+                else
+                {
+                    if (slotTemp[slot.xPos, slot.yPos].placeholder)
+                    {
+                        slotTemp[slot.xPos, slot.yPos].hidden = true;
+                        slotTemp[slot.xPos, slot.yPos] = slot;
+                    }
+                    else
+                    {
+                        Log.Warning($"[RPG Style Inventrory] {slotTemp[slot.xPos, slot.yPos]} and {slot} are overlaping");
+                    }
+                }
             }
             //generating cache while exploring the boundaries
             foreach (var def in DefDatabase<ThingDef>.AllDefsListForReading.Where(x => x.apparel != null))
             {
                 foreach (var slot in slots)
                 {
-                    if (slot.Valid(def.apparel))
+                    if (!slot.placeholder && slot.Valid(def.apparel))
                     {
                         dict[def] = slot;
                         activeSlots.Add(slot);

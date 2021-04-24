@@ -451,4 +451,49 @@
 			<li>Shoulders</li>
 		</bodyPartGroups>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>4</xPos>
+		<yPos>1</yPos>
+		<validationOrder>0</validationOrder>
+		<defName>ItemSlotNeckTMCloak_PH</defName>
+		<label>Cloak</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>2</xPos>
+		<yPos>1</yPos>
+		<validationOrder>0</validationOrder>
+		<defName>ItemSlotNeckTMArtifact_PH</defName>
+		<label>Neck Artifact</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>6</xPos>
+		<yPos>4</yPos>
+		<validationOrder>0</validationOrder>
+		<defName>ItemSlotArmsTMArtifact_PH</defName>
+		<label>Arms Artifact</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>5</xPos>
+		<yPos>4</yPos>
+		<validationOrder>0</validationOrder>
+		<defName>ItemSlotRightHandTMArtifact_PH</defName>
+		<label>Right Hand Artifact</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>1</xPos>
+		<yPos>4</yPos>
+		<validationOrder>0</validationOrder>
+		<defName>ItemSlotLeftHandTMArtifact_PH</defName>
+		<label>Left Hand Artifact</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 </Defs>
