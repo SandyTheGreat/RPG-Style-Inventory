@@ -412,7 +412,7 @@
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 		<xPos>0</xPos>
-		<yPos>5</yPos>
+		<yPos>0</yPos>
 		<validationOrder>3000</validationOrder>
 		<defName>ItemSlotLeftHandVFECOuterShell</defName>
 		<label>Left Hand Outer Special</label>
@@ -455,7 +455,6 @@
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 		<xPos>4</xPos>
 		<yPos>1</yPos>
-		<validationOrder>0</validationOrder>
 		<defName>ItemSlotNeckTMCloak_PH</defName>
 		<label>Cloak</label>
 		<placeholder>true</placeholder>
@@ -464,7 +463,6 @@
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 		<xPos>2</xPos>
 		<yPos>1</yPos>
-		<validationOrder>0</validationOrder>
 		<defName>ItemSlotNeckTMArtifact_PH</defName>
 		<label>Neck Artifact</label>
 		<placeholder>true</placeholder>
@@ -473,27 +471,48 @@
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 		<xPos>6</xPos>
 		<yPos>4</yPos>
-		<validationOrder>0</validationOrder>
 		<defName>ItemSlotArmsTMArtifact_PH</defName>
 		<label>Arms Artifact</label>
 		<placeholder>true</placeholder>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
-		<xPos>5</xPos>
-		<yPos>4</yPos>
-		<validationOrder>0</validationOrder>
+		<xPos>6</xPos>
+		<yPos>5</yPos>
 		<defName>ItemSlotRightHandTMArtifact_PH</defName>
 		<label>Right Hand Artifact</label>
 		<placeholder>true</placeholder>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
-		<xPos>1</xPos>
-		<yPos>4</yPos>
-		<validationOrder>0</validationOrder>
+		<xPos>0</xPos>
+		<yPos>5</yPos>
 		<defName>ItemSlotLeftHandTMArtifact_PH</defName>
 		<label>Left Hand Artifact</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>1</xPos>
+		<yPos>4</yPos>
+		<defName>ItemSlotShouldersCEWebbing_PH</defName>
+		<label>Webbing</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>5</xPos>
+		<yPos>4</yPos>
+		<defName>ItemSlotShouldersCEBackpack_PH</defName>
+		<label>Backpack</label>
+		<placeholder>true</placeholder>
+	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+	
+	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
+		<xPos>5</xPos>
+		<yPos>0</yPos>
+		<defName>ItemSlotCEStrappedHead_PH</defName>
+		<label>Face</label>
 		<placeholder>true</placeholder>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 </Defs>
