@@ -12,12 +12,14 @@ namespace Sandy_Detailed_RPG_Inventory
         public static float rpgTabHeight = 500f;
         public static float rpgTabWidth = 706f;
         public static bool displayAllSlots = false;
+        public static bool displayTempOnTheSameLine = false;
 
         public override void ExposeData()
         {
             Scribe_Values.Look(ref rpgTabHeight, "rpgTabHeight", 500f);
             Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 706f);
             Scribe_Values.Look(ref displayAllSlots, "displayAllSlots", false);
+            Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", false);
             base.ExposeData();
         }
     }
@@ -32,7 +34,6 @@ namespace Sandy_Detailed_RPG_Inventory
         {
             this.settings = GetSettings<Sandy_RPG_Settings>();
         }
-
 
         public override void DoSettingsWindowContents(Rect inRect)
         {
@@ -53,6 +54,8 @@ namespace Sandy_Detailed_RPG_Inventory
             {
                 DoFit(Sandy_RPG_Settings.displayAllSlots, true);
             }
+            listingStandard.CheckboxLabeled("RPG_Dispaly_Temp_On_The_Same_Line_Label".Translate(), ref Sandy_RPG_Settings.displayTempOnTheSameLine, "RPG_Dispaly_Temp_On_The_Same_Line_Note".Translate());
+
             listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }

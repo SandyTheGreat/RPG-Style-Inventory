@@ -7,6 +7,7 @@ using UnityEngine;
 using Verse;
 using Verse.AI;
 using Verse.Sound;
+using Sandy_Detailed_RPG_Inventory.MODIntegrations;
 
 namespace Sandy_Detailed_RPG_Inventory
 {
@@ -24,7 +25,7 @@ namespace Sandy_Detailed_RPG_Inventory
         //private const float stdThingRowHeight = 30f;
         private const float thingIconOuter = 74f;
         private const float thingIconInner = 64f;
-        private const float statPanelWidth = 128f;
+        public const float statPanelWidth = 128f;
         private const float pawnPanelSize = 128f;
         private const float pawnPanelSizeAssumption = -28f;
         private const float tipContractionSize = 12f;
@@ -58,15 +59,6 @@ namespace Sandy_Detailed_RPG_Inventory
 				return this.ShouldShowInventory(selPawnForGear) || this.ShouldShowApparel(selPawnForGear) || this.ShouldShowEquipment(selPawnForGear);
 			}
 		}
-
-		/*private bool colonist
-		{
-			get
-			{
-				Pawn selPawnForGear = this.SelPawnForGear;
-				return !this.SelPawnForGear.RaceProps.IsMechanoid && !this.SelPawnForGear.RaceProps.Animal;
-			}
-		}*/
 
 		private bool CanControl
 		{
@@ -132,7 +124,7 @@ namespace Sandy_Detailed_RPG_Inventory
                     if (isVisible)
                     {
 
-                        this.DrawStats(ref num, statPanelX);
+                        this.DrawStats1(ref num, statPanelX);
                         GUI.color = new Color(1f, 1f, 1f, 1f);
                     }
                     float pawnTop = rightMost ? 0f : num;
@@ -321,8 +313,6 @@ namespace Sandy_Detailed_RPG_Inventory
 						}
 				}
 			}
-			float mass = thing.GetStatValue(StatDefOf.Mass, true) * (float)thing.stackCount;
-			string smass = mass.ToString("G") + " kg";
 			string text = thing.LabelCap;
 			Rect rect5 = rect.ContractedBy(2f);
 			float num2 = rect5.height * ((float)thing.HitPoints / (float)thing.MaxHitPoints);
@@ -388,45 +378,22 @@ namespace Sandy_Detailed_RPG_Inventory
                 GUI.color = Color.white;
             }
 			Apparel apparel2 = thing as Apparel;
-			if (apparel2 != null && this.SelPawnForGear.outfits != null && apparel2.WornByCorpse)
+			if (apparel2 != null && this.SelPawnForGear.outfits != null)
 			{
-				Rect rect3 = new Rect(rect.xMax - 20f, rect.yMax - 20f, 20f, 20f);
-				GUI.DrawTexture(rect3, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tainted_Icon", true));
-				TooltipHandler.TipRegion(rect3, "WasWornByCorpse".Translate());
+                if (apparel2.WornByCorpse)
+                {
+                    Rect rect3 = new Rect(rect.xMax - 20f, rect.yMax - 20f, 20f, 20f);
+                    GUI.DrawTexture(rect3, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tainted_Icon", true));
+                    TooltipHandler.TipRegion(rect3, "WasWornByCorpse".Translate());
+                }
+                if (this.SelPawnForGear.outfits.forcedHandler.IsForced(apparel2))
+                {
+                    text += ", " + "ApparelForcedLower".Translate();
+                    Rect rect4 = new Rect(rect.x, rect.yMax - 20f, 20f, 20f);
+                    GUI.DrawTexture(rect4, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true));
+                    TooltipHandler.TipRegion(rect4, "ForcedApparel".Translate());
+                }
 			}
-			if (apparel2 != null && this.SelPawnForGear.outfits != null && this.SelPawnForGear.outfits.forcedHandler.IsForced(apparel2))
-			{
-				text += ", " + "ApparelForcedLower".Translate();
-				Rect rect4 = new Rect(rect.x, rect.yMax - 20f, 20f, 20f);
-				GUI.DrawTexture(rect4, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true));
-				TooltipHandler.TipRegion(rect4, "ForcedApparel".Translate());
-			}
-			if (apparel2 != null && this.SelPawnForGear.outfits != null && RPG_ModCheck.IsRWoMActive() && ShouldDrawEnchantmentIcon(apparel2))
-			{
-				Rect rectM = new Rect(rect.x, rect.yMax - 40f, 20f, 20f);
-				GUI.DrawTexture(rectM, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Enchanted_Icon", true));
-				TooltipHandler.TipRegion(rectM, RPG_ModCheck.GetEnchantmentString(apparel2));
-			}
-			if (flag)
-			{
-				text += " (" + "ApparelLockedLower".Translate() + ")";
-			}
-			Text.WordWrap = true;
-			string text2 = thing.DescriptionDetailed;
-			string text3 = text + "\n" + text2 + "\n" + smass;
-			if (thing.def.useHitPoints)
-			{
-				string text4 = text3;
-				text3 = string.Concat(new object[]
-				{
-					text4,
-					"\n",
-					thing.HitPoints,
-					" / ",
-					thing.MaxHitPoints
-				});
-			}
-			TooltipHandler.TipRegion(rect, text3);
             if (equipment)
             {
                 if (this.SelPawnForGear.story.traits.HasTrait(TraitDefOf.Brawler) && thing.def.IsRangedWeapon)
@@ -435,14 +402,17 @@ namespace Sandy_Detailed_RPG_Inventory
                     GUI.DrawTexture(rect6, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true));
                     TooltipHandler.TipRegion(rect6, "BrawlerHasRangedWeapon".Translate());
                 }
-                if (RPG_ModCheck.IsRWoMActive() && ShouldDrawEnchantmentIcon(thing))
-                {
-                    Rect rectM = new Rect(rect.x, rect.yMax - 40f, 20f, 20f);
-                    GUI.DrawTexture(rectM, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Enchanted_Icon", true));
-                    TooltipHandler.TipRegion(rectM, RPG_ModCheck.GetEnchantmentString(thing));
-                }
             }
-		}
+            if (flag)
+			{
+				text += " (" + "ApparelLockedLower".Translate() + ")";
+			}
+			Text.WordWrap = true;
+            string text3 = text + "\n" + ThingDetailedTip(thing, inventory); 
+			TooltipHandler.TipRegion(rect, text3);
+
+            MODIntegration.DrawThingRow1(this, rect, thing, equipment);
+        }
 
 		public void TryDrawOverallArmor1(ref float top, float left, float width, StatDef stat, string label, Texture image)
 		{
@@ -497,18 +467,25 @@ namespace Sandy_Detailed_RPG_Inventory
 			{
 				return;
 			}
-			Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
+            //
+            float curwidth = Sandy_RPG_Settings.displayTempOnTheSameLine ? width / 2f : width;
+            Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
 			GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Min_Temperature", true));
-			TooltipHandler.TipRegion(rect1, "ComfyTemperatureRange".Translate());
+			TooltipHandler.TipRegion(rect1, StatDefOf.ComfyTemperatureMin.label);
 			float statValue = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMin, true);
-			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
+			Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, curwidth - stdThingIconSize - 4f, statIconSize);
 			Widgets.Label(rect2, statValue.ToStringTemperature("F0"));
-            top += stdThingRowHeight;
+            //
+            if (Sandy_RPG_Settings.displayTempOnTheSameLine)
+                left += curwidth;
+            else
+                top += stdThingRowHeight;
+            //
             rect1 = new Rect(left, top, statIconSize, statIconSize);
 			GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Max_Temperature", true));
-			TooltipHandler.TipRegion(rect1, "ComfyTemperatureRange".Translate());
+			TooltipHandler.TipRegion(rect1, StatDefOf.ComfyTemperatureMax.label);
 			float statValue2 = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMax, true);
-			rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, width - stdThingIconSize - 4f, statIconSize);
+			rect2 = new Rect(left + stdThingIconSize, top + (stdThingRowHeight - statIconSize) / 2f, curwidth - stdThingIconSize, statIconSize);
 			Widgets.Label(rect2, statValue2.ToStringTemperature("F0"));
             top += stdThingRowHeight;
         }
@@ -599,24 +576,13 @@ namespace Sandy_Detailed_RPG_Inventory
 			Text.WordWrap = true;
 			if (Mouse.IsOver(rect))
 			{
-				string text2 = thing.DescriptionDetailed;
-				if (thing.def.useHitPoints)
-				{
-					text2 = string.Concat(new object[]
-					{
-						text2,
-						"\n",
-						thing.HitPoints,
-						" / ",
-						thing.MaxHitPoints
-					});
-				}
+                string text2 = ThingDetailedTip(thing, inventory);
 				TooltipHandler.TipRegion(rect, text2);
 			}
 			y += stdThingRowHeight;
 		}
 
-		private void TryDrawOverallArmor(ref float curY, float width, StatDef stat, string label)
+		public void TryDrawOverallArmor(ref float curY, float width, StatDef stat, string label)
 		{
 			float num = 0f;
 			float num2 = Mathf.Clamp01(this.SelPawnForGear.GetStatValue(stat, true) / 2f);
@@ -726,29 +692,10 @@ namespace Sandy_Detailed_RPG_Inventory
 			return p.RaceProps.Humanlike || this.ShouldShowApparel(p) || p.GetStatValue(StatDefOf.ArmorRating_Sharp, true) > 0f || p.GetStatValue(StatDefOf.ArmorRating_Blunt, true) > 0f || p.GetStatValue(StatDefOf.ArmorRating_Heat, true) > 0f;
 		}
 
-		private bool ShouldDrawEnchantmentIcon(Thing item)
-		{
-			bool isEnchanted = false;
-			TorannMagic.Enchantment.CompEnchantedItem enchantedItem = item.TryGetComp<TorannMagic.Enchantment.CompEnchantedItem>();
-			if (enchantedItem != null && enchantedItem.HasEnchantment)
-			{
-				isEnchanted = true;
-			}
-			return isEnchanted;
-		}
-
         protected void DrawViewList(ref float num, Rect viewRect)
         {
-            this.TryDrawMassInfo(ref num, viewRect.width);
-            this.TryDrawComfyTemperatureRange(ref num, viewRect.width);
-            //armor
-            if (this.ShouldShowOverallArmor(this.SelPawnForGear))
-            {
-                Widgets.ListSeparator(ref num, viewRect.width, "OverallArmor".Translate());
-                this.TryDrawOverallArmor(ref num, viewRect.width, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate());
-                this.TryDrawOverallArmor(ref num, viewRect.width, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate());
-                this.TryDrawOverallArmor(ref num, viewRect.width, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate());
-            }
+            //stats
+            DrawStats(ref num, viewRect);
             //equipment
             if (this.ShouldShowEquipment(this.SelPawnForGear))
             {
@@ -821,7 +768,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 }
                 else
                 {
-                    if (slotTemp[slot.xPos, slot.yPos].placeholder)
+                    if (slotTemp[slot.xPos, slot.yPos].placeholder && !slot.placeholder)
                     {
                         slotTemp[slot.xPos, slot.yPos].hidden = true;
                         slotTemp[slot.xPos, slot.yPos] = slot;
@@ -907,12 +854,13 @@ namespace Sandy_Detailed_RPG_Inventory
             }
         }
 
-        protected virtual void DrawStats(ref float top, float left)
+        protected virtual void DrawStats1(ref float top, float left)
         {
             this.TryDrawMassInfo1(ref top, left, statPanelWidth);
             this.TryDrawComfyTemperatureRange1(ref top, left, statPanelWidth);
 
-            if (this.ShouldShowOverallArmor(this.SelPawnForGear))
+            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
+            if (showArmor)
             {
                 this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate(),
                                          ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true));
@@ -920,13 +868,50 @@ namespace Sandy_Detailed_RPG_Inventory
                                          ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true));
                 this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate(),
                                          ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true));
-                if (RPG_ModCheck.IsRWoMActive())
-                {
-                    TryDrawOverallArmor1(ref top, left, statPanelWidth, RPG_ModCheck.GetHarmonyStatDef(), "RPG_Style_Inventory_ArmorHarmony".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHarmony_Icon", true));
-                }
-
             }
+            MODIntegration.DrawStats1(this, ref top, left, showArmor);
+        }
+
+        protected virtual void DrawStats(ref float top, Rect rect)
+        {
+            this.TryDrawMassInfo(ref top, rect.width);
+            this.TryDrawComfyTemperatureRange(ref top, rect.width);
+            //armor
+            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
+            if (showArmor)
+            {
+                Widgets.ListSeparator(ref top, rect.width, "OverallArmor".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate());
+            }
+
+            MODIntegration.DrawStats(this, ref top, rect, showArmor);
+        }
+
+        static string ThingDetailedTip(Thing thing, bool inventory)
+        {
+            string text = thing.DescriptionDetailed;
+
+            if (!inventory)
+            {
+                float mass = thing.GetStatValue(StatDefOf.Mass, true) * thing.stackCount;
+                string smass = mass.ToString("G") + " kg";
+                text = string.Concat(new object[] { text, "\n", smass });
+            }
+
+            if (thing.def.useHitPoints)
+            {
+                text = string.Concat(new object[]
+                {
+                        text,
+                        "\n",
+                        thing.HitPoints,
+                        " / ",
+                        thing.MaxHitPoints
+                });
+            }
+            return text;
         }
     }
 
@@ -935,7 +920,7 @@ namespace Sandy_Detailed_RPG_Inventory
         //public Func<ApparelProperties, bool> validator = null;
         public int xPos = int.MinValue;
         public int yPos = int.MinValue;
-        public int validationOrder = 100;
+        public int validationOrder = 0;
         public bool placeholder = false;
         public List<ApparelLayerDef> apparelLayers = new List<ApparelLayerDef>();
         public List<BodyPartGroupDef> bodyPartGroups = new List<BodyPartGroupDef>();
@@ -976,6 +961,5 @@ namespace Sandy_Detailed_RPG_Inventory
 
             return result;
         }
-
     }
 }

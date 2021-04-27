@@ -13,4 +13,6 @@
   <Primary_Weapon>Primary Weapon</Primary_Weapon>
   <Secondary_Weapon>Off-hand Weapon</Secondary_Weapon>
   <AutoFitWidth_Button_Label>Autofit Widh</AutoFitWidth_Button_Label>
+  <RPG_Dispaly_Temp_On_The_Same_Line_Label>Display comfortable temperature values on the same line</RPG_Dispaly_Temp_On_The_Same_Line_Label>
+  <RPG_Dispaly_Temp_On_The_Same_Line_Note></RPG_Dispaly_Temp_On_The_Same_Line_Note>
 </LanguageData>
