@@ -80,6 +80,7 @@
 						<apparelLayers>
 							<li>StrappedHead</li>
 						</apparelLayers>
+						<anchor>Left</anchor>
 					</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 				</value>
 			</li>

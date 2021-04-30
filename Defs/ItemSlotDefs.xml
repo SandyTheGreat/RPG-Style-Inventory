@@ -111,6 +111,7 @@
 		<bodyPartGroups>
 			<li>Eyes</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -125,6 +126,7 @@
 		<bodyPartGroups>
 			<li>Teeth</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -139,6 +141,7 @@
 		<bodyPartGroups>
 			<li>Ears</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
