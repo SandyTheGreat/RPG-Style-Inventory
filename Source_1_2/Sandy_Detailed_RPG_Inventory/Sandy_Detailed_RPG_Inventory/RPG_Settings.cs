@@ -13,6 +13,8 @@ namespace Sandy_Detailed_RPG_Inventory
         public static float rpgTabWidth = 706f;
         public static bool displayAllSlots = false;
         public static bool displayTempOnTheSameLine = false;
+        public static bool simplifiedView = false;
+        public static Sandy_RPG_Settings instance { get { return LoadedModManager.GetMod<Sandy_Detailed_RPG_Inventory>().GetSettings<Sandy_RPG_Settings>(); }  }
 
         public override void ExposeData()
         {
@@ -20,6 +22,7 @@ namespace Sandy_Detailed_RPG_Inventory
             Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 706f);
             Scribe_Values.Look(ref displayAllSlots, "displayAllSlots", false);
             Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", false);
+            Scribe_Values.Look(ref simplifiedView, "simplifiedView", false);
             base.ExposeData();
         }
     }
@@ -44,11 +47,11 @@ namespace Sandy_Detailed_RPG_Inventory
             listingStandard.TextFieldNumeric(ref Sandy_RPG_Settings.rpgTabWidth, ref tabWidth);
             string s;
             if (Sandy_Detailed_RPG_GearTab.minRecommendedWidth == Sandy_RPG_Settings.rpgTabWidth)
-                s = "AutoFitWidth_Wide_Button_Label".Translate();
+                s = "RPG_AutoFitWidth_Wide_Button_Label".Translate();
             else if (Sandy_Detailed_RPG_GearTab.maxRecommendedWidth == Sandy_RPG_Settings.rpgTabWidth)
-                s = "AutoFitWidth_Tight_Button_Label".Translate();
+                s = "RPG_AutoFitWidth_Tight_Button_Label".Translate();
             else
-                s = "AutoFitWidth_Button_Label".Translate();
+                s = "RPG_AutoFitWidth_Button_Label".Translate();
             if (listingStandard.ButtonText(s))
             {
                 DoFit(Sandy_RPG_Settings.displayAllSlots);
@@ -57,7 +60,7 @@ namespace Sandy_Detailed_RPG_Inventory
             listingStandard.Label("RPG_Inventory_Height".Translate());
             listingStandard.TextFieldNumeric(ref Sandy_RPG_Settings.rpgTabHeight, ref tabHeight);
             //
-            if (CustomCheckboxLabeled(listingStandard, "RPG_Display_All_Slots_Label".Translate(), ref Sandy_RPG_Settings.displayAllSlots, "RPG_Display_All_Slots_Note".Translate()))
+            if (Sandy_Utility.CustomCheckboxLabeled(listingStandard, "RPG_Display_All_Slots_Label".Translate(), ref Sandy_RPG_Settings.displayAllSlots, "RPG_Display_All_Slots_Note".Translate()))
             {
                 DoFit(Sandy_RPG_Settings.displayAllSlots, true);
             }
@@ -102,17 +105,31 @@ namespace Sandy_Detailed_RPG_Inventory
                 }
         }
 
+        public override string SettingsCategory()
+        {
+            return "RPG_Style_Inventory_Title".Translate();
+        }
+    }
+
+    static class Sandy_Utility
+    {
         public static bool CustomCheckboxLabeled(Listing listing, string label, ref bool checkOn, string tooltip = null)
         {
             bool result = false;
             float lineHeight = Text.LineHeight;
+            bool val = checkOn;
+            Func<bool, bool> check = delegate (bool pressed) { result = pressed; if (pressed) val = !val; return val; };
             Rect rect = listing.GetRect(lineHeight);
+            CustomCheckboxLabeled(rect, label, check, tooltip);
+            listing.Gap(listing.verticalSpacing);
+            return result;
+        }
+
+        public static void CustomCheckboxLabeled(Rect rect, string label, Func<bool, bool> func, string tooltip = null)
+        {
             if (!tooltip.NullOrEmpty())
             {
-                if (Mouse.IsOver(rect))
-                {
-                    Widgets.DrawHighlight(rect);
-                }
+                if (Mouse.IsOver(rect)) Widgets.DrawHighlight(rect);
                 TooltipHandler.TipRegion(rect, tooltip);
             }
             //
@@ -120,40 +137,21 @@ namespace Sandy_Detailed_RPG_Inventory
             Text.Anchor = TextAnchor.MiddleLeft;
 
             Widgets.Label(rect, label);
+            bool val;
             if (Widgets.ButtonInvisible(rect, true))
             {
-                checkOn = !checkOn;
-                if (checkOn)
-                {
-                    SoundDefOf.Checkbox_TurnedOn.PlayOneShotOnCamera(null);
-                }
-                else
-                {
-                    SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera(null);
-                }
-                result = true;
+                val = func(true);
+                if (val) SoundDefOf.Checkbox_TurnedOn.PlayOneShotOnCamera(null);
+                else SoundDefOf.Checkbox_TurnedOff.PlayOneShotOnCamera(null);
             }
+            else val = func(false);
             //
             Color color = GUI.color;
             Texture2D image;
-            if (checkOn)
-            {
-                image = Widgets.CheckboxOnTex;
-            }
-            else
-            {
-                image = Widgets.CheckboxOffTex;
-            }
+            if (val) image = Widgets.CheckboxOnTex;
+            else image = Widgets.CheckboxOffTex;
             GUI.DrawTexture(new Rect(rect.x + rect.width - 24f, rect.y, 24f, 24f), image);
             Text.Anchor = anchor;
-            listing.Gap(listing.verticalSpacing);
-            //
-            return result;
-        }
-
-        public override string SettingsCategory()
-        {
-            return "RPG_Style_Inventory_Title".Translate();
         }
     }
 }

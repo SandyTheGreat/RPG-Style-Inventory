@@ -22,16 +22,15 @@ namespace Sandy_Detailed_RPG_Inventory
         private const float stdLineHeight = 22f;
         private const float stdScrollbarWidth = 20f;
         private const float statIconSize = 24f;
-        //private const float stdThingRowHeight = 30f;
         private const float thingIconOuter = 74f;
         private const float thingIconInner = 64f;
         public const float statPanelWidth = 128f;
         private const float pawnPanelSize = 128f;
         private const float pawnPanelSizeAssumption = -28f;
         private const float tipContractionSize = 12f;
-        //private static List<Thing> workingInvList = new List<Thing>();
         public static readonly Vector3 PawnTextureCameraOffset = new Vector3(0f, 0f, 0f);
         private bool viewList = false;
+        private bool simplifiedView { get { return Sandy_RPG_Settings.simplifiedView; } set { Sandy_RPG_Settings.simplifiedView = value; Sandy_RPG_Settings.instance.Mod.WriteSettings(); } }
 
         public Sandy_Detailed_RPG_GearTab()
         {
@@ -102,19 +101,30 @@ namespace Sandy_Detailed_RPG_Inventory
 
         protected override void FillTab()
         {
-            Text.Font = GameFont.Small;
-            GUI.color = Color.white;
-            string tmptext = "Sandy_ViewList".Translate(); //autofitting text in case of translations
-            Vector2 tmpvector = Text.CalcSize(tmptext);
-            Rect rect0 = new Rect(stdPadding / 2f, 2f, tmpvector.x + stdThingRowHeight, stdThingRowHeight);
-            Widgets.CheckboxLabeled(rect0, tmptext, ref viewList, false, null, null, false);
             Rect rect = new Rect(0f, stdPadding, this.size.x, this.size.y - stdPadding).ContractedBy(stdPadding / 2);
             Rect position = new Rect(rect.x, rect.y, rect.width, rect.height);
-            GUI.BeginGroup(position);
             Rect outRect = new Rect(0f, 0f, position.width, position.height);
             Rect viewRect = new Rect(0f, 0f, position.width - stdScrollbarWidth, this.scrollViewHeight);
-            Widgets.BeginScrollView(outRect, ref this.scrollPosition, viewRect, true);
             float num = 0f;
+            //
+            Text.Font = GameFont.Small;
+            GUI.color = Color.white;
+            //
+            string tmptext = "Sandy_ViewList".Translate(); //autofitting text in case of translations
+            Vector2 tmpvector = Text.CalcSize(tmptext);
+            Rect rect0 = new Rect(stdPadding / 2f, 2f, tmpvector.x + stdThingIconSize, stdThingRowHeight);
+            Widgets.CheckboxLabeled(rect0, tmptext, ref viewList, false, null, null, false);
+            //
+            tmptext = "Sandy_SimplifiedView".Translate();
+            tmpvector = Text.CalcSize(tmptext);
+            rect0 = new Rect(rect0.x + rect0.width, rect0.y, tmpvector.x + stdThingIconSize, stdThingRowHeight);
+            Func<bool, bool> onpressed = delegate (bool pressed) { var val = simplifiedView; if (pressed) simplifiedView = (val = !val); return val; };
+            Sandy_Utility.CustomCheckboxLabeled(rect0, tmptext, onpressed);
+            //
+
+            GUI.BeginGroup(position);
+
+            Widgets.BeginScrollView(outRect, ref this.scrollPosition, viewRect, true);
 
             if (viewList)
             {
@@ -207,46 +217,59 @@ namespace Sandy_Detailed_RPG_Inventory
                     }
                     //apparel
                     List<Thing> unslotedApparel = new List<Thing>();
+                    float curSlotPanelHeight = 0f;
                     if (this.ShouldShowApparel(this.SelPawnForGear))
                     {
-                        HashSet<int> usedSlots = new HashSet<int>();
-                        foreach (Apparel current2 in this.SelPawnForGear.apparel.WornApparel)
+                        if (simplifiedView)
                         {
-                            ItemSlotDef slot = dict[current2.def];
-                            if (slot == null)
-                            {
-                                unslotedApparel.Add(current2);
-                            }
-                            else
-                            {
-                                usedSlots.Add(slot.listid);
-                                Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
-                                GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
-                                this.DrawThingRow1(apRect, current2, false);
-                            }
+                            DrawInventory1(SelPawnForGear.apparel.WornApparel, ref curSlotPanelHeight, 0f, horSlotCount, x => (x as Apparel).def.apparel.bodyPartGroups[0].listOrder);
                         }
-
-                        foreach (ItemSlotDef slot in currentSlots)
+                        else
                         {
-                            if (!slot.hidden && !usedSlots.Contains(slot.listid))
+                            curSlotPanelHeight = slotPanelHeight;
+                            HashSet<int> usedSlots = new HashSet<int>();
+                            foreach (Apparel current2 in this.SelPawnForGear.apparel.WornApparel)
                             {
-                                Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
-                                GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
-                                Rect tipRect = apRect.ContractedBy(tipContractionSize);
-                                TooltipHandler.TipRegion(apRect, slot.label);
+                                ItemSlotDef slot = dict[current2.def];
+                                if (slot == null)
+                                {
+                                    unslotedApparel.Add(current2);
+                                }
+                                else
+                                {
+                                    usedSlots.Add(slot.listid);
+                                    Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
+                                    GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                    this.DrawThingRow1(apRect, current2, false);
+                                }
+                            }
+
+                            foreach (ItemSlotDef slot in currentSlots)
+                            {
+                                if (!slot.hidden && !usedSlots.Contains(slot.listid))
+                                {
+                                    Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
+                                    GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                    Rect tipRect = apRect.ContractedBy(tipContractionSize);
+                                    TooltipHandler.TipRegion(apRect, slot.label);
+                                }
                             }
                         }
                     }
-                    num = Math.Max(num, slotPanelHeight);
+                    num = Math.Max(num, curSlotPanelHeight);
 
                     if (unslotedEquipment.Count > 0)
                         this.DrawInventory(unslotedEquipment, "Equipment", viewRect, ref num);
 
                     if (unslotedApparel.Count > 0)
-                    //if (Sandy_RPG_Settings.unslotedItemPanel)
-                        this.DrawInventory1(unslotedApparel, ref num, 0, horSlotCount);
-                    //else
-                    //    this.DrawInventory(unslotedApparel, "Apparel", viewRect, ref num);
+                    {
+                        var tmp = GUI.color;
+                        GUI.color = new Color(0.3f, 0.3f, 0.3f, 1f);//Widgets.SeparatorLineColor;
+                        Widgets.DrawLineHorizontal(0f, num, horSlotCount * thingIconOuter);
+                        num += thingIconOuter - thingIconInner;
+                        GUI.color = tmp;
+                        this.DrawInventory1(unslotedApparel, ref num, 0, horSlotCount, x => (x as Apparel).def.apparel.bodyPartGroups[0].listOrder);
+                    }
                 }
                 else
                 {
@@ -769,24 +792,18 @@ namespace Sandy_Detailed_RPG_Inventory
             MODIntegration.DrawStats(this, ref top, rect, showArmor);
         }
 
-        protected void DrawInventory1(IEnumerable<Thing> list, ref float top, float left, int horSlots, bool inventory = false)
+        protected void DrawInventory1(IEnumerable<Thing> list, ref float top, float left, int horSlots, Func<Thing,int> sortby = null, bool inventory = false)
         {
-            var tmp = GUI.color;
-            GUI.color = new Color(0.3f, 0.3f, 0.3f, 1f);//Widgets.SeparatorLineColor;
-            Widgets.DrawLineHorizontal(0f, top, horSlots * thingIconOuter);
-            GUI.color = tmp;
-            top += thingIconOuter - thingIconInner;
-            //
-            List<Thing> l = list as List<Thing>;
-            if (l == null) l = list.ToList();
-
-            for (var i = 0; i < l.Count; i++)
+            int i = 0;
+            if (sortby == null) sortby = x => i;
+            foreach (var thing in list.OrderByDescending(sortby))
             {
                 Rect rect = new Rect(left + (i % horSlots) * thingIconOuter, top + (i / horSlots) * thingIconOuter, thingIconInner, thingIconInner);
-                DrawThingRow1(rect, l[i], inventory);
+                DrawThingRow1(rect, thing, inventory);
+                i++;
             }
             //
-            top += ((l.Count / horSlots) + 1) * thingIconOuter;
+            top += ((list.Count() / horSlots) + 1) * thingIconOuter;
         }
 
         private static Vector2[,] offsets = null;

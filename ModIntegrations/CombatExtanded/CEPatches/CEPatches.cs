@@ -261,8 +261,8 @@ namespace CEPatches
                     {
                         yield return new CodeInstruction(OpCodes.Ldarg_0);
                         yield return new CodeInstruction(OpCodes.Call, LDrawBars);
-                        yield return new CodeInstruction(OpCodes.Stloc_3);
-                        yield return new CodeInstruction(OpCodes.Ldloc_3);
+                        yield return new CodeInstruction(OpCodes.Stloc_1);
+                        yield return new CodeInstruction(OpCodes.Ldloc_1);
                     }
 
                     yield return i;
