@@ -67,6 +67,7 @@
 		<bodyPartGroups>
 			<li>Torso</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -223,6 +224,7 @@
 		<bodyPartGroups>
 			<li>Waist</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -266,6 +268,7 @@
 		<bodyPartGroups>
 			<li>Legs</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -283,7 +286,7 @@
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
-		<xPos>3</xPos>
+		<xPos>2</xPos>
 		<yPos>5</yPos>
 		<validationOrder>2100</validationOrder>
 		<defName>ItemSlotFeetOnSkin</defName>
@@ -312,7 +315,7 @@
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
-		<xPos>2</xPos>
+		<xPos>3</xPos>
 		<yPos>5</yPos>
 		<validationOrder>2300</validationOrder>
 		<defName>ItemSlotFeetMiddle</defName>
@@ -337,6 +340,7 @@
 		<bodyPartGroups>
 			<li>Hands</li>
 		</bodyPartGroups>
+		<anchor>BottomRight</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -352,6 +356,7 @@
 		<bodyPartGroups>
 			<li>Hands</li>
 		</bodyPartGroups>
+		<anchor>BottomRight</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -366,6 +371,7 @@
 		<bodyPartGroups>
 			<li>Hands</li>
 		</bodyPartGroups>
+		<anchor>BottomRight</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -380,6 +386,7 @@
 		<bodyPartGroups>
 			<li>RightHand</li>
 		</bodyPartGroups>
+		<anchor>BottomRight</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -394,6 +401,7 @@
 		<bodyPartGroups>
 			<li>RightHand</li>
 		</bodyPartGroups>
+		<anchor>BottomRight</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -408,6 +416,7 @@
 		<bodyPartGroups>
 			<li>LeftHand</li>
 		</bodyPartGroups>
+		<anchor>BottomLeft</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -422,6 +431,7 @@
 		<bodyPartGroups>
 			<li>LeftHand</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -436,6 +446,7 @@
 		<bodyPartGroups>
 			<li>LeftHand</li>
 		</bodyPartGroups>
+		<anchor>BottomLeft</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -450,6 +461,7 @@
 		<bodyPartGroups>
 			<li>Shoulders</li>
 		</bodyPartGroups>
+		<anchor>Left</anchor>
 	</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 	
 	<Sandy_Detailed_RPG_Inventory.ItemSlotDef>

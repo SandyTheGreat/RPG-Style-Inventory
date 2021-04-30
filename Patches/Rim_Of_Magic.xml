@@ -57,6 +57,7 @@
 						<bodyPartGroups>
 							<li>Arms</li>
 						</bodyPartGroups>
+						<anchor>BottomRight</anchor>
 					</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 					
 					<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -71,6 +72,7 @@
 						<bodyPartGroups>
 							<li>RightHand</li>
 						</bodyPartGroups>
+						<anchor>BottomRight</anchor>
 					</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 					
 					<Sandy_Detailed_RPG_Inventory.ItemSlotDef>
@@ -85,6 +87,7 @@
 						<bodyPartGroups>
 							<li>LeftHand</li>
 						</bodyPartGroups>
+						<anchor>BottomLeft</anchor>
 					</Sandy_Detailed_RPG_Inventory.ItemSlotDef>
 				</value>
 			</li>

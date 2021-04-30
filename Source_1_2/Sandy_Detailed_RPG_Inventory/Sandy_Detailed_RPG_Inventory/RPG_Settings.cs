@@ -42,7 +42,14 @@ namespace Sandy_Detailed_RPG_Inventory
             listingStandard.Begin(inRect);
             listingStandard.Label("RPG_Inventory_Width".Translate());
             listingStandard.TextFieldNumeric(ref Sandy_RPG_Settings.rpgTabWidth, ref tabWidth);
-            if(listingStandard.ButtonText("AutoFitWidth_Button_Label".Translate()))
+            string s;
+            if (Sandy_Detailed_RPG_GearTab.minRecommendedWidth == Sandy_RPG_Settings.rpgTabWidth)
+                s = "AutoFitWidth_Wide_Button_Label".Translate();
+            else if (Sandy_Detailed_RPG_GearTab.maxRecommendedWidth == Sandy_RPG_Settings.rpgTabWidth)
+                s = "AutoFitWidth_Tight_Button_Label".Translate();
+            else
+                s = "AutoFitWidth_Button_Label".Translate();
+            if (listingStandard.ButtonText(s))
             {
                 DoFit(Sandy_RPG_Settings.displayAllSlots);
             }
@@ -63,23 +70,36 @@ namespace Sandy_Detailed_RPG_Inventory
         protected void DoFit(bool displayAllSlots, bool reset = false)
         {
             Sandy_Detailed_RPG_GearTab.MakePreps(displayAllSlots, reset);
-            float minWidth = Sandy_Detailed_RPG_GearTab.CalcWidth(false);
-            float maxWidth = Sandy_Detailed_RPG_GearTab.CalcWidth(true);
+            float minWidth = Sandy_Detailed_RPG_GearTab.minRecommendedWidth;
+            float maxWidth = Sandy_Detailed_RPG_GearTab.maxRecommendedWidth;
+
+            if(!reset)
+                if (Sandy_RPG_Settings.rpgTabWidth == Sandy_Detailed_RPG_GearTab.minRecommendedWidth) //ability to switch between recommended sizes
+                {
+                    tabWidth = maxWidth.ToString();
+                    return;
+                }
+                else if (Sandy_RPG_Settings.rpgTabWidth == Sandy_Detailed_RPG_GearTab.maxRecommendedWidth)
+                {
+                    tabWidth = minWidth.ToString();
+                    return;
+                }
+
             if (Sandy_RPG_Settings.rpgTabWidth < minWidth) // setting minimum size (pawn model on the bottom)
-            {
-                tabWidth = minWidth.ToString();
-            }
-            else if (Sandy_RPG_Settings.rpgTabWidth > minWidth) //stats on the side
-            {
-                if (Sandy_RPG_Settings.rpgTabWidth < maxWidth)
                 {
                     tabWidth = minWidth.ToString();
                 }
-                else
+                else if (Sandy_RPG_Settings.rpgTabWidth > minWidth) //stats on the side
                 {
-                    tabWidth = maxWidth.ToString();
+                    if (Sandy_RPG_Settings.rpgTabWidth < maxWidth)
+                    {
+                        tabWidth = minWidth.ToString();
+                    }
+                    else
+                    {
+                        tabWidth = maxWidth.ToString();
+                    }
                 }
-            }
         }
 
         public static bool CustomCheckboxLabeled(Listing listing, string label, ref bool checkOn, string tooltip = null)
