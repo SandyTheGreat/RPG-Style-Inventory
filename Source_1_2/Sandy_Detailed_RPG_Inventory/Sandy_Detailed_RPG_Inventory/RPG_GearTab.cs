@@ -243,7 +243,10 @@ namespace Sandy_Detailed_RPG_Inventory
                         this.DrawInventory(unslotedEquipment, "Equipment", viewRect, ref num);
 
                     if (unslotedApparel.Count > 0)
-                        this.DrawInventory(unslotedApparel, "Apparel", viewRect, ref num);
+                    //if (Sandy_RPG_Settings.unslotedItemPanel)
+                        this.DrawInventory1(unslotedApparel, ref num, 0, horSlotCount);
+                    //else
+                    //    this.DrawInventory(unslotedApparel, "Apparel", viewRect, ref num);
                 }
                 else
                 {
@@ -731,6 +734,61 @@ namespace Sandy_Detailed_RPG_Inventory
             }
         }
 
+        protected virtual void DrawStats1(ref float top, float left)
+        {
+            this.TryDrawMassInfo1(ref top, left, statPanelWidth);
+            this.TryDrawComfyTemperatureRange1(ref top, left, statPanelWidth);
+
+            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
+            if (showArmor)
+            {
+                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate(),
+                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true));
+                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate(),
+                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true));
+                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate(),
+                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true));
+            }
+            MODIntegration.DrawStats1(this, ref top, left, showArmor);
+        }
+
+        protected virtual void DrawStats(ref float top, Rect rect)
+        {
+            this.TryDrawMassInfo(ref top, rect.width);
+            this.TryDrawComfyTemperatureRange(ref top, rect.width);
+            //armor
+            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
+            if (showArmor)
+            {
+                Widgets.ListSeparator(ref top, rect.width, "OverallArmor".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate());
+                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate());
+            }
+
+            MODIntegration.DrawStats(this, ref top, rect, showArmor);
+        }
+
+        protected void DrawInventory1(IEnumerable<Thing> list, ref float top, float left, int horSlots, bool inventory = false)
+        {
+            var tmp = GUI.color;
+            GUI.color = new Color(0.3f, 0.3f, 0.3f, 1f);//Widgets.SeparatorLineColor;
+            Widgets.DrawLineHorizontal(0f, top, horSlots * thingIconOuter);
+            GUI.color = tmp;
+            top += thingIconOuter - thingIconInner;
+            //
+            List<Thing> l = list as List<Thing>;
+            if (l == null) l = list.ToList();
+
+            for (var i = 0; i < l.Count; i++)
+            {
+                Rect rect = new Rect(left + (i % horSlots) * thingIconOuter, top + (i / horSlots) * thingIconOuter, thingIconInner, thingIconInner);
+                DrawThingRow1(rect, l[i], inventory);
+            }
+            //
+            top += ((l.Count / horSlots) + 1) * thingIconOuter;
+        }
+
         private static Vector2[,] offsets = null;
         private static Dictionary<ThingDef, ItemSlotDef> dict = null;
         private static List<ItemSlotDef> slots = null;
@@ -742,6 +800,8 @@ namespace Sandy_Detailed_RPG_Inventory
         private static bool rightMost = false;
         public static float minRecommendedWidth = 700f;
         public static float maxRecommendedWidth = 700f;
+        private static int horSlotCount = 5;
+        private static int verSlotCount = 5;
 
         public static void MakePreps(bool displayAllSlots, bool reset = false)
         {
@@ -840,7 +900,7 @@ namespace Sandy_Detailed_RPG_Inventory
                     if (rows[j] == 0)
                         rowoffset--;
                     for (i = 0; i <= maxcolumn; i++)
-                        if(temp[i, j] != null && temp[i, j].listid != int.MinValue)
+                        if (temp[i, j] != null && temp[i, j].listid != int.MinValue)
                             offsets[temp[i, j].xPos, temp[i, j].yPos].y += rowoffset;
                     //yidx[i] = offset;
                 }
@@ -857,8 +917,10 @@ namespace Sandy_Detailed_RPG_Inventory
             }
 
             //resetting size values
-            slotPanelWidth = (maxcolumn + coloffset + 1) * thingIconOuter;
-            slotPanelHeight = (maxrow + rowoffset + 1) * thingIconOuter;
+            horSlotCount = maxcolumn + coloffset + 1;
+            verSlotCount = maxrow + rowoffset + 1;
+            slotPanelWidth = horSlotCount * thingIconOuter;
+            slotPanelHeight = verSlotCount * thingIconOuter;
             updateRightMost();
             CalcRecommendedWidth();
         }
@@ -987,11 +1049,11 @@ namespace Sandy_Detailed_RPG_Inventory
                     if (empty[j] == null) empty[j] = new HashSet<int>();
                     if (temp[i, j] == null || temp[i, j].listid == int.MinValue || (temp[i, j].anchor & SlotAnchor.Left) == SlotAnchor.Left)
                     {
-                        if (columns[i] != 0) empty[j].Add(i); 
+                        if (columns[i] != 0) empty[j].Add(i);
                     }
                     else if ((temp[i, j].anchor & SlotAnchor.Right) == SlotAnchor.Right)
                     {
-                        
+
                         int emptycol = int.MinValue; //move them step by step to not mess up ordering for other slots
                         int curi = i;
                         while (empty[j].TryMinBy(x => x > emptycol ? x : int.MaxValue, out var curemptycol) && curemptycol > emptycol)
@@ -1108,41 +1170,6 @@ namespace Sandy_Detailed_RPG_Inventory
         {
             maxRecommendedWidth = slotPanelWidth + pawnPanelSize + stdPadding * 2 + statPanelWidth + stdScrollbarWidth;
             minRecommendedWidth = slotPanelWidth + statPanelWidth + stdPadding * 2 + stdScrollbarWidth;
-        }
-
-        protected virtual void DrawStats1(ref float top, float left)
-        {
-            this.TryDrawMassInfo1(ref top, left, statPanelWidth);
-            this.TryDrawComfyTemperatureRange1(ref top, left, statPanelWidth);
-
-            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
-            if (showArmor)
-            {
-                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true));
-                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true));
-                this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true));
-            }
-            MODIntegration.DrawStats1(this, ref top, left, showArmor);
-        }
-
-        protected virtual void DrawStats(ref float top, Rect rect)
-        {
-            this.TryDrawMassInfo(ref top, rect.width);
-            this.TryDrawComfyTemperatureRange(ref top, rect.width);
-            //armor
-            bool showArmor = this.ShouldShowOverallArmor(this.SelPawnForGear);
-            if (showArmor)
-            {
-                Widgets.ListSeparator(ref top, rect.width, "OverallArmor".Translate());
-                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate());
-                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate());
-                this.TryDrawOverallArmor(ref top, rect.width, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate());
-            }
-
-            MODIntegration.DrawStats(this, ref top, rect, showArmor);
         }
 
         static string ThingDetailedTip(Thing thing, bool inventory)
