@@ -121,6 +121,7 @@ namespace Sandy_Detailed_RPG_Inventory
             Func<bool, bool> check = delegate (bool pressed) { result = pressed; if (pressed) val = !val; return val; };
             Rect rect = listing.GetRect(lineHeight);
             CustomCheckboxLabeled(rect, label, check, tooltip);
+            checkOn = val;
             listing.Gap(listing.verticalSpacing);
             return result;
         }

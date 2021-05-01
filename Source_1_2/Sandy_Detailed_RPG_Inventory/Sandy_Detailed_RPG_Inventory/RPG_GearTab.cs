@@ -118,7 +118,8 @@ namespace Sandy_Detailed_RPG_Inventory
             tmptext = "Sandy_SimplifiedView".Translate();
             tmpvector = Text.CalcSize(tmptext);
             rect0 = new Rect(rect0.x + rect0.width, rect0.y, tmpvector.x + stdThingIconSize, stdThingRowHeight);
-            Func<bool, bool> onpressed = delegate (bool pressed) { var val = simplifiedView; if (pressed) simplifiedView = (val = !val); return val; };
+            bool simplified = simplifiedView;
+            Func<bool, bool> onpressed = delegate (bool pressed) { if (pressed) simplifiedView = (simplified = !simplified); return simplified; };
             Sandy_Utility.CustomCheckboxLabeled(rect0, tmptext, onpressed);
             //
 
@@ -126,6 +127,7 @@ namespace Sandy_Detailed_RPG_Inventory
 
             Widgets.BeginScrollView(outRect, ref this.scrollPosition, viewRect, true);
 
+            int horSlots = horSlotCount;
             if (viewList)
             {
                 this.DrawViewList(ref num, viewRect);
@@ -136,20 +138,30 @@ namespace Sandy_Detailed_RPG_Inventory
                 if (this.SelPawnForGear.RaceProps.Humanlike)
                 {
                     bool isVisible = this.IsVisible;
+                    float statX;
+                    if (simplified)
+                    {
+                        horSlots = (int)((size.x - stdPadding - stdScrollbarWidth - statPanelWidth) / thingIconOuter);
+                        statX = statX = horSlots * thingIconOuter;
+                    }
+                    {
+                        statX = statPanelX;
+                    }
                     //stats
                     if (isVisible)
                     {
-
-                        this.DrawStats1(ref num, statPanelX);
+                        this.DrawStats1(ref num, statX);
                         GUI.color = new Color(1f, 1f, 1f, 1f);
                     }
-                    float pawnTop = rightMost ? 0f : num;
+                    //
+                    float pawnTop = rightMost & !simplified ? 0f : num;
+                    float pawnLeft = simplified ? statX : slotPanelWidth;
                     float EquipmentTop = ((int)((pawnTop + pawnPanelSize + pawnPanelSizeAssumption) / thingIconOuter) + 1) * thingIconOuter;
                     pawnTop += (EquipmentTop - pawnTop - pawnPanelSize) / 2f; //correcting pawn panel position to be exactly between equipment and stats
                     //Pawn
                     if (isVisible)
                     {
-                        Rect PawnRect = new Rect(slotPanelWidth, pawnTop, pawnPanelSize, pawnPanelSize);
+                        Rect PawnRect = new Rect(pawnLeft, pawnTop, pawnPanelSize, pawnPanelSize);
                         this.DrawColonist(PawnRect, this.SelPawnForGear);
                     }
                     //equipment
@@ -174,10 +186,10 @@ namespace Sandy_Detailed_RPG_Inventory
 
                         if (secondary == null && !Sandy_RPG_Settings.displayAllSlots)
                         {
-                            Rect newRect1 = new Rect(slotPanelWidth + thingIconInner / 2f, EquipmentTop, thingIconInner, thingIconInner);
-                            GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                            Rect newRect1 = new Rect(pawnLeft + thingIconInner / 2f, EquipmentTop, thingIconInner, thingIconInner);
                             if (this.SelPawnForGear.equipment.Primary == null)
                             {
+                                GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                                 Rect tipRect = newRect1.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect1, "Primary_Weapon".Translate());
                             }
@@ -188,10 +200,10 @@ namespace Sandy_Detailed_RPG_Inventory
                         }
                         else
                         {
-                            Rect newRect1 = new Rect(slotPanelWidth, EquipmentTop, thingIconInner, thingIconInner);
-                            GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                            Rect newRect1 = new Rect(pawnLeft, EquipmentTop, thingIconInner, thingIconInner);
                             if (this.SelPawnForGear.equipment.Primary == null)
                             {
+                                GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                                 Rect tipRect = newRect1.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect1, "Primary_Weapon".Translate());
                             }
@@ -201,9 +213,9 @@ namespace Sandy_Detailed_RPG_Inventory
                             }
                             //
                             Rect newRect2 = new Rect(newRect1.x + thingIconOuter, newRect1.y, newRect1.width, newRect1.height);
-                            GUI.DrawTexture(newRect2, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                             if (secondary == null)
                             {
+                                GUI.DrawTexture(newRect2, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                                 Rect tipRect = newRect2.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect2, "Secondary_Weapon".Translate());
                             }
@@ -220,9 +232,9 @@ namespace Sandy_Detailed_RPG_Inventory
                     float curSlotPanelHeight = 0f;
                     if (this.ShouldShowApparel(this.SelPawnForGear))
                     {
-                        if (simplifiedView)
+                        if (simplified)
                         {
-                            DrawInventory1(SelPawnForGear.apparel.WornApparel, ref curSlotPanelHeight, 0f, horSlotCount, x => (x as Apparel).def.apparel.bodyPartGroups[0].listOrder);
+                            DrawInventory1(SelPawnForGear.apparel.WornApparel, ref curSlotPanelHeight, 0f, horSlots, x => (x as Apparel).def.apparel.bodyPartGroups[0].listOrder);
                         }
                         else
                         {
@@ -239,7 +251,7 @@ namespace Sandy_Detailed_RPG_Inventory
                                 {
                                     usedSlots.Add(slot.listid);
                                     Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
-                                    GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                    //GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                                     this.DrawThingRow1(apRect, current2, false);
                                 }
                             }
@@ -256,7 +268,7 @@ namespace Sandy_Detailed_RPG_Inventory
                             }
                         }
                     }
-                    num = Math.Max(num, curSlotPanelHeight);
+                    num = simplified ? curSlotPanelHeight : Math.Max(num, curSlotPanelHeight);
 
                     if (unslotedEquipment.Count > 0)
                         this.DrawInventory(unslotedEquipment, "Equipment", viewRect, ref num);
@@ -280,7 +292,8 @@ namespace Sandy_Detailed_RPG_Inventory
             //inventory
             if (this.ShouldShowInventory(this.SelPawnForGear))
             {
-                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
+                Rect rect1 = simplified ? new Rect(viewRect.x, viewRect.y, (horSlots - 1) * thingIconOuter + thingIconInner, viewRect.height) : viewRect;
+                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", rect1, ref num, true);
             }
             //
             if (Event.current.type == EventType.Layout)
@@ -301,6 +314,7 @@ namespace Sandy_Detailed_RPG_Inventory
 
         private void DrawThingRow1(Rect rect, Thing thing, bool inventory = false, bool equipment = false)
         {
+            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
             QualityCategory c;
             if (thing.TryGetQuality(out c))
             {
@@ -1180,6 +1194,7 @@ namespace Sandy_Detailed_RPG_Inventory
         protected static void updateRightMost()
         {
             rightMost = Sandy_RPG_Settings.rpgTabWidth - slotPanelWidth - statPanelWidth - pawnPanelSize - stdPadding - stdScrollbarWidth >= 0f;
+            
             statPanelX = rightMost ? slotPanelWidth + pawnPanelSize + stdPadding : slotPanelWidth;
         }
 
