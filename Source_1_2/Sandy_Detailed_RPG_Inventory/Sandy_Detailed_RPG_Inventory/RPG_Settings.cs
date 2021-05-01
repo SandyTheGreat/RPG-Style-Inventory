@@ -4,6 +4,7 @@ using UnityEngine;
 using Verse;
 using RimWorld;
 using Verse.Sound;
+using System.Linq;
 
 namespace Sandy_Detailed_RPG_Inventory
 {
@@ -13,17 +14,43 @@ namespace Sandy_Detailed_RPG_Inventory
         public static float rpgTabWidth = 706f;
         public static bool displayAllSlots = false;
         public static bool displayTempOnTheSameLine = false;
-        public static bool simplifiedView = false;
+        public static Dictionary<ThingDef, bool> simplifiedView = null;
         public static Sandy_RPG_Settings instance { get { return LoadedModManager.GetMod<Sandy_Detailed_RPG_Inventory>().GetSettings<Sandy_RPG_Settings>(); }  }
 
         public override void ExposeData()
         {
+            base.ExposeData();
             Scribe_Values.Look(ref rpgTabHeight, "rpgTabHeight", 500f);
             Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 706f);
             Scribe_Values.Look(ref displayAllSlots, "displayAllSlots", false);
             Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", false);
-            Scribe_Values.Look(ref simplifiedView, "simplifiedView", false);
-            base.ExposeData();
+            //Scribe_Values.Look(ref simplifiedView, "simplifiedView", false);
+            if (simplifiedView == null)
+                return;
+            //
+            List<KeyValuePair<ThingDef,bool>> l = simplifiedView.ToList();
+            for (var i = 0; i < l.Count; i ++)
+            {
+                bool b = l[i].Value;
+                Scribe_Values.Look(ref b, l[i].Key.defName + "_simplifiedView", false);
+                simplifiedView[l[i].Key] = b;
+            }
+        }
+
+
+        public static void FillSimplifiedViewDict()
+        {
+            if (simplifiedView != null || instance == null)
+                return;
+            //
+            simplifiedView = new Dictionary<ThingDef, bool>();
+            IEnumerable<ThingDef> l = DefDatabase<ThingDef>.AllDefsListForReading.Where(x => x.thingClass == typeof(Pawn) || x.thingClass.IsSubclassOf(typeof(Pawn)));
+            foreach (var i in l)
+            {
+                Sandy_RPG_Settings.simplifiedView[i] = false;
+            }
+            var inst = instance;
+            LoadedModManager.ReadModSettings<Sandy_RPG_Settings>(inst.Mod.Content.FolderName, inst.Mod.GetType().Name);
         }
     }
 
@@ -36,6 +63,11 @@ namespace Sandy_Detailed_RPG_Inventory
         public Sandy_Detailed_RPG_Inventory(ModContentPack content) : base(content)
         {
             this.settings = GetSettings<Sandy_RPG_Settings>();
+        }
+
+        public override string SettingsCategory()
+        {
+            return "RPG_Style_Inventory_Title".Translate();
         }
 
         public override void DoSettingsWindowContents(Rect inRect)
@@ -103,11 +135,6 @@ namespace Sandy_Detailed_RPG_Inventory
                         tabWidth = maxWidth.ToString();
                     }
                 }
-        }
-
-        public override string SettingsCategory()
-        {
-            return "RPG_Style_Inventory_Title".Translate();
         }
     }
 

@@ -30,7 +30,14 @@ namespace Sandy_Detailed_RPG_Inventory
         private const float tipContractionSize = 12f;
         public static readonly Vector3 PawnTextureCameraOffset = new Vector3(0f, 0f, 0f);
         private bool viewList = false;
-        private bool simplifiedView { get { return Sandy_RPG_Settings.simplifiedView; } set { Sandy_RPG_Settings.simplifiedView = value; Sandy_RPG_Settings.instance.Mod.WriteSettings(); } }
+        private ThingDef cacheddef = null;
+        private bool cachedSimplifiedView = false;
+        private bool simplifiedView
+        {
+            //constantly searching in dict is slower than checking for cached value
+            get { return cacheddef == SelPawn.def ? cachedSimplifiedView : (cachedSimplifiedView = Sandy_RPG_Settings.simplifiedView[(cacheddef = SelPawn.def)]); }
+            set { Sandy_RPG_Settings.simplifiedView[SelPawn.def] = (cachedSimplifiedView = value); Sandy_RPG_Settings.instance.Mod.WriteSettings(); }
+        }
 
         public Sandy_Detailed_RPG_GearTab()
         {
@@ -150,8 +157,9 @@ namespace Sandy_Detailed_RPG_Inventory
                     if (simplified)
                     {
                         horSlots = (int)((size.x - stdPadding - stdScrollbarWidth - statPanelWidth) / thingIconOuter);
-                        statX = statX = horSlots * thingIconOuter;
+                        statX = horSlots * thingIconOuter;
                     }
+                    else
                     {
                         statX = statPanelX;
                     }
@@ -300,8 +308,8 @@ namespace Sandy_Detailed_RPG_Inventory
             //inventory
             if (this.ShouldShowInventory(this.SelPawnForGear))
             {
-                Rect rect1 = simplified ? new Rect(viewRect.x, viewRect.y, (horSlots - 1) * thingIconOuter + thingIconInner, viewRect.height) : viewRect;
-                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", rect1, ref num, true);
+                if (simplified) viewRect.width = (horSlots - 1) * thingIconOuter + thingIconInner;
+                this.DrawInventory(this.SelPawnForGear.inventory.innerContainer, "Inventory", viewRect, ref num, true);
             }
             //
             if (Event.current.type == EventType.Layout)
@@ -322,48 +330,58 @@ namespace Sandy_Detailed_RPG_Inventory
 
         private void DrawThingRow1(Rect rect, Thing thing, bool inventory = false, bool equipment = false)
         {
-            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+            //GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
             QualityCategory c;
             if (thing.TryGetQuality(out c))
             {
+                string folder = "AltFrames";
                 switch (c)
                 {
                     case QualityCategory.Legendary:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Legendary", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Legendary", true));
                             break;
                         }
                     case QualityCategory.Masterwork:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Masterwork", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Masterwork", true));
                             break;
                         }
                     case QualityCategory.Excellent:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Excellent", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Excellent", true));
                             break;
                         }
                     case QualityCategory.Good:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Good", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Good", true));
                             break;
                         }
                     case QualityCategory.Normal:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Normal", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Normal", true));
                             break;
                         }
                     case QualityCategory.Poor:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Poor", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Poor", true));
                             break;
                         }
                     case QualityCategory.Awful:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Frames/RPG_Awful", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Awful", true));
+                            break;
+                        }
+                    default:
+                        {
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/DesButBG", true));
                             break;
                         }
                 }
+            }
+            else
+            {
+                GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
             }
             string text = thing.LabelCap;
             Rect rect5 = rect.ContractedBy(2f);
@@ -849,12 +867,11 @@ namespace Sandy_Detailed_RPG_Inventory
                 return;
             }
             //
-            //HashSet<int> rows = new HashSet<int>();
-            //HashSet<int> columns = new HashSet<int>();
             int maxrow = 4;
             int maxcolumn = 4;
             int anchorCol = 3;
             //creating basics
+            Sandy_RPG_Settings.FillSimplifiedViewDict();
             dict = new Dictionary<ThingDef, ItemSlotDef>();
             activeSlots = new List<ItemSlotDef>();
             slots = DefDatabase<ItemSlotDef>.AllDefsListForReading.OrderBy(x => x.validationOrder).ToList();
@@ -1178,7 +1195,6 @@ namespace Sandy_Detailed_RPG_Inventory
                         int curj = j;
                         while (empty[i].TryMinBy(x => x > emptyrow ? x : int.MaxValue, out var curemptyrow) && curemptyrow > emptyrow)
                         {
-                            Log.Message($"moved {temp[i, curj]}({i},{curj}) to {i},{curemptyrow}");
                             emptyrow = curemptyrow;
                             offsets[temp[i, curj].xPos, temp[i, curj].yPos].y = emptyrow - temp[i, curj].yPos;
                             //
