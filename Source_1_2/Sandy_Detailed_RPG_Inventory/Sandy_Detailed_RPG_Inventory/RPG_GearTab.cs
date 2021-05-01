@@ -374,7 +374,7 @@ namespace Sandy_Detailed_RPG_Inventory
                         }
                     default:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/DesButBG", true));
+                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
                             break;
                         }
                 }
