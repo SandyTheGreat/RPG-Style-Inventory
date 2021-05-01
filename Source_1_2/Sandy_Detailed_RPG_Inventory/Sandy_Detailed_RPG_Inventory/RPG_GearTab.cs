@@ -115,12 +115,20 @@ namespace Sandy_Detailed_RPG_Inventory
             Rect rect0 = new Rect(stdPadding / 2f, 2f, tmpvector.x + stdThingIconSize, stdThingRowHeight);
             Widgets.CheckboxLabeled(rect0, tmptext, ref viewList, false, null, null, false);
             //
-            tmptext = "Sandy_SimplifiedView".Translate();
-            tmpvector = Text.CalcSize(tmptext);
-            rect0 = new Rect(rect0.x + rect0.width, rect0.y, tmpvector.x + stdThingIconSize, stdThingRowHeight);
-            bool simplified = simplifiedView;
-            Func<bool, bool> onpressed = delegate (bool pressed) { if (pressed) simplifiedView = (simplified = !simplified); return simplified; };
-            Sandy_Utility.CustomCheckboxLabeled(rect0, tmptext, onpressed);
+            bool simplified;
+            if (viewList)
+            {
+                simplified = false;
+            }
+            else
+            {
+                tmptext = "Sandy_SimplifiedView".Translate();
+                tmpvector = Text.CalcSize(tmptext);
+                rect0 = new Rect(rect0.x + rect0.width, rect0.y, tmpvector.x + stdThingIconSize, stdThingRowHeight);
+                simplified = simplifiedView;
+                Func<bool, bool> onpressed = delegate (bool pressed) { if (pressed) simplifiedView = (simplified = !simplified); return simplified; };
+                Sandy_Utility.CustomCheckboxLabeled(rect0, tmptext, onpressed);
+            }
             //
 
             GUI.BeginGroup(position);
