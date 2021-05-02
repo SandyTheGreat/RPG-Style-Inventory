@@ -16,6 +16,7 @@ namespace Sandy_Detailed_RPG_Inventory
         public static bool displayTempOnTheSameLine = false;
         public static Dictionary<ThingDef, bool> simplifiedView = null;
         public static Sandy_RPG_Settings instance { get { return LoadedModManager.GetMod<Sandy_Detailed_RPG_Inventory>().GetSettings<Sandy_RPG_Settings>(); }  }
+        public static bool apparelHealthbar = false;
 
         public override void ExposeData()
         {
@@ -24,7 +25,8 @@ namespace Sandy_Detailed_RPG_Inventory
             Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 706f);
             Scribe_Values.Look(ref displayAllSlots, "displayAllSlots", false);
             Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", false);
-            //Scribe_Values.Look(ref simplifiedView, "simplifiedView", false);
+            Scribe_Values.Look(ref apparelHealthbar, "apparelHealthbar", false);
+            //
             if (simplifiedView == null)
                 return;
             //
@@ -97,6 +99,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 DoFit(Sandy_RPG_Settings.displayAllSlots, true);
             }
             listingStandard.CheckboxLabeled("RPG_Dispaly_Temp_On_The_Same_Line_Label".Translate(), ref Sandy_RPG_Settings.displayTempOnTheSameLine, "RPG_Dispaly_Temp_On_The_Same_Line_Note".Translate());
+            listingStandard.CheckboxLabeled("RPG_Display_Apparel_Healthbar_Label".Translate(), ref Sandy_RPG_Settings.apparelHealthbar, "RPG_Display_Apparel_Healthbar_Note".Translate());
 
             listingStandard.End();
             base.DoSettingsWindowContents(inRect);
@@ -138,8 +141,36 @@ namespace Sandy_Detailed_RPG_Inventory
         }
     }
 
-    static class Sandy_Utility
+    [StaticConstructorOnStartup]
+    public static class Sandy_Utility
     {
+        public static readonly Texture2D texBar = SolidColorMaterials.NewSolidColorTexture(new Color(0.2f, 0.8f, 0.85f));
+        public static readonly Texture2D texYellow = SolidColorMaterials.NewSolidColorTexture(Color.yellow);
+        public static readonly Texture2D texRed = SolidColorMaterials.NewSolidColorTexture(Color.red);
+        public static readonly Texture2D texBlack = SolidColorMaterials.NewSolidColorTexture(Color.black);
+        public static readonly Texture2D texBG = ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true);
+        public static readonly Texture2D texTainted = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tainted_Icon", true);
+        public static readonly Texture2D texForced = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true);
+        public static readonly Texture2D texMass = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_MassCarried_Icon", true);
+        public static readonly Texture2D texMinTemp = ContentFinder<Texture2D>.Get("UI/Icons/Min_Temperature", true);
+        public static readonly Texture2D texMaxTemp = ContentFinder<Texture2D>.Get("UI/Icons/Max_Temperature", true);
+        public static readonly Texture2D texButtonDrop = ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true);
+        public static readonly Texture2D texButtonIngest = ContentFinder<Texture2D>.Get("UI/Buttons/Ingest", true);
+        public static readonly Texture2D texArmorSharp = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true);
+        public static readonly Texture2D texArmorBlunt = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true);
+        public static readonly Texture2D texArmorHeat = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true);
+        public static readonly Texture2D texTattered = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tattered");
+        public static readonly Texture2D texNotTattered = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Not_Tattered");
+
+        public static readonly string frameFolder = "AltFrames";
+        public static readonly Texture2D texLegendary = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Legendary", true);
+        public static readonly Texture2D texMasterwork = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Masterwork", true);
+        public static readonly Texture2D texExcellent = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Excellent", true);
+        public static readonly Texture2D texGood = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Good", true);
+        public static readonly Texture2D texNormal = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Normal", true);
+        public static readonly Texture2D texPoor = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Poor", true);
+        public static readonly Texture2D texAwful = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Awful", true);
+
         public static bool CustomCheckboxLabeled(Listing listing, string label, ref bool checkOn, string tooltip = null)
         {
             bool result = false;

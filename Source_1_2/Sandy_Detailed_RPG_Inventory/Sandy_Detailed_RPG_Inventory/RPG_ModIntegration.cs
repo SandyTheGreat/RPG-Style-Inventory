@@ -30,27 +30,23 @@ namespace Sandy_Detailed_RPG_Inventory.MODIntegrations
         }
     }
 
+    [StaticConstructorOnStartup]
     static class RWoMIntegration
     {
         static bool initialized = false;
         static bool RWoMIsActive = false;
+        static readonly Texture2D texEnchanted = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Enchanted_Icon", true);
+        static readonly Texture2D texArmorHarmony = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHarmony_Icon", true);
 
-        static bool Active()
+        static bool Active
         {
-            if (initialized)
+            get
             {
-                return RWoMIsActive;
+                if (initialized) return RWoMIsActive;
+                initialized = true;
+                return RWoMIsActive = ModsConfig.ActiveModsInLoadOrder.FirstOrDefault(x => x.PackageId == "torann.arimworldofmagic") != null;
             }
-            initialized = true;
-            List<ModMetaData> mmdList = ModsConfig.ActiveModsInLoadOrder.ToList();
-            for (int i = 0; i < mmdList.Count; i++)
-            {
-                if (mmdList[i].PackageId == "torann.arimworldofmagic")
-                {
-                    RWoMIsActive = true;
-                }
-            }
-            return RWoMIsActive;
+
         }
 
         static StatDef GetHarmonyStatDef()
@@ -65,11 +61,11 @@ namespace Sandy_Detailed_RPG_Inventory.MODIntegrations
 
         public static void DrawThingRow1(Sandy_Detailed_RPG_GearTab tab, Rect rect, Thing thing, bool equipment)
         {
-            if (!Active() || !ShouldDrawEnchantmentIcon(thing))
+            if (!Active || !ShouldDrawEnchantmentIcon(thing))
                 return;
             //
             Rect rectM = new Rect(rect.x, rect.yMax - 40f, 20f, 20f);
-            GUI.DrawTexture(rectM, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Enchanted_Icon", true));
+            GUI.DrawTexture(rectM, texEnchanted);
             TooltipHandler.TipRegion(rectM, GetEnchantmentString(thing));
         }
 
@@ -86,17 +82,17 @@ namespace Sandy_Detailed_RPG_Inventory.MODIntegrations
 
         public static void DrawStats1(Sandy_Detailed_RPG_GearTab tab, ref float top, float left, bool showArmor)
         {
-            if (!Active())
+            if (!Active)
                 return;
 
             if (showArmor)
                 tab.TryDrawOverallArmor1(ref top, left, Sandy_Detailed_RPG_GearTab.statPanelWidth, GetHarmonyStatDef(), 
-                    "RPG_Style_Inventory_ArmorHarmony".Translate(), ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHarmony_Icon", true));
+                    "RPG_Style_Inventory_ArmorHarmony".Translate(), texArmorHarmony);
         }
 
         public static void DrawStats(Sandy_Detailed_RPG_GearTab tab, ref float top, Rect rect, bool showArmor)
         {
-            if (!Active())
+            if (!Active)
                 return;
 
             if (showArmor)

@@ -31,6 +31,7 @@ namespace CEPatches
 
         static class RPG_CEPatches
         {
+            public static readonly Texture2D texBulk = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Bulk_Icon", true);
             static MethodInfo LDrawStats1;
             static MethodInfo LDrawStats;
             static FieldInfo LstatIconSize;
@@ -126,11 +127,11 @@ namespace CEPatches
                 if (flag)
                 {
                     TryDrawOverallArmor1(__instance, ref top, left, (float)args[2], StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate(),
-                        "CE_mmRHA".Translate(), ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true));
+                        "CE_mmRHA".Translate(), Sandy_Utility.texArmorSharp);
                     TryDrawOverallArmor1(__instance, ref top, left, (float)args[2], StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate(),
-                        "CE_MPa".Translate(), ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true));
+                        "CE_MPa".Translate(), Sandy_Utility.texArmorBlunt);
                     TryDrawOverallArmor1(__instance, ref top, left, (float)args[2], StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate(),
-                        "%", ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true));
+                        "%", Sandy_Utility.texArmorHeat);
                 }
                 //
                 MODIntegration.DrawStats1((Sandy_Detailed_RPG_GearTab)__instance, ref top, left, flag);
@@ -559,7 +560,7 @@ namespace CEPatches
                 float stdThingRowHeight = (float)LstdThingRowHeight.GetValue(null);
                 //weight
                 Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
-                GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_MassCarried_Icon", true));
+                GUI.DrawTexture(rect1, Sandy_Utility.texMass);
                 TooltipHandler.TipRegion(rect1, "CE_Weight".Translate());
                 float val1 = compInventory.currentWeight;
                 float val2 = compInventory.capacityWeight;
@@ -574,7 +575,7 @@ namespace CEPatches
                 top += stdThingRowHeight;
                 //bulk
                 rect1 = new Rect(left, top, statIconSize, statIconSize);
-                GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Bulk_Icon", true));
+                GUI.DrawTexture(rect1, texBulk);
                 TooltipHandler.TipRegion(rect1, "CE_Bulk".Translate());
                 val1 = compInventory.currentBulk;
                 val2 = compInventory.capacityBulk;

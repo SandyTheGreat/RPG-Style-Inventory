@@ -205,7 +205,7 @@ namespace Sandy_Detailed_RPG_Inventory
                             Rect newRect1 = new Rect(pawnLeft + thingIconInner / 2f, EquipmentTop, thingIconInner, thingIconInner);
                             if (this.SelPawnForGear.equipment.Primary == null)
                             {
-                                GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                GUI.DrawTexture(newRect1, Sandy_Utility.texBG);
                                 Rect tipRect = newRect1.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect1, "Primary_Weapon".Translate());
                             }
@@ -219,7 +219,7 @@ namespace Sandy_Detailed_RPG_Inventory
                             Rect newRect1 = new Rect(pawnLeft, EquipmentTop, thingIconInner, thingIconInner);
                             if (this.SelPawnForGear.equipment.Primary == null)
                             {
-                                GUI.DrawTexture(newRect1, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                GUI.DrawTexture(newRect1, Sandy_Utility.texBG);
                                 Rect tipRect = newRect1.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect1, "Primary_Weapon".Translate());
                             }
@@ -231,7 +231,7 @@ namespace Sandy_Detailed_RPG_Inventory
                             Rect newRect2 = new Rect(newRect1.x + thingIconOuter, newRect1.y, newRect1.width, newRect1.height);
                             if (secondary == null)
                             {
-                                GUI.DrawTexture(newRect2, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                GUI.DrawTexture(newRect2, Sandy_Utility.texBG);
                                 Rect tipRect = newRect2.ContractedBy(tipContractionSize);
                                 TooltipHandler.TipRegion(newRect2, "Secondary_Weapon".Translate());
                             }
@@ -277,7 +277,7 @@ namespace Sandy_Detailed_RPG_Inventory
                                 if (!slot.hidden && !usedSlots.Contains(slot.listid))
                                 {
                                     Rect apRect = new Rect((slot.xPos + offsets[slot.xPos, slot.yPos].x) * thingIconOuter, (slot.yPos + offsets[slot.xPos, slot.yPos].y) * thingIconOuter, thingIconInner, thingIconInner);
-                                    GUI.DrawTexture(apRect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                                    GUI.DrawTexture(apRect, Sandy_Utility.texBG);
                                     Rect tipRect = apRect.ContractedBy(tipContractionSize);
                                     TooltipHandler.TipRegion(apRect, slot.label);
                                 }
@@ -334,66 +334,73 @@ namespace Sandy_Detailed_RPG_Inventory
             QualityCategory c;
             if (thing.TryGetQuality(out c))
             {
-                string folder = "AltFrames";
                 switch (c)
                 {
                     case QualityCategory.Legendary:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Legendary", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texLegendary);
                             break;
                         }
                     case QualityCategory.Masterwork:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Masterwork", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texMasterwork);
                             break;
                         }
                     case QualityCategory.Excellent:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Excellent", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texExcellent);
                             break;
                         }
                     case QualityCategory.Good:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Good", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texGood);
                             break;
                         }
                     case QualityCategory.Normal:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Normal", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texNormal);
                             break;
                         }
                     case QualityCategory.Poor:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Poor", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texPoor);
                             break;
                         }
                     case QualityCategory.Awful:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/" + folder + "/RPG_Awful", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texAwful);
                             break;
                         }
                     default:
                         {
-                            GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                            GUI.DrawTexture(rect, Sandy_Utility.texBG);
                             break;
                         }
                 }
             }
             else
             {
-                GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
+                GUI.DrawTexture(rect, Sandy_Utility.texBG);
             }
             string text = thing.LabelCap;
-            Rect rect5 = rect.ContractedBy(2f);
-            float num2 = rect5.height * ((float)thing.HitPoints / (float)thing.MaxHitPoints);
-            rect5.yMin = rect5.yMax - num2;
-            rect5.height = num2;
-            GUI.DrawTexture(rect5, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Not_Tattered"));
-            if ((float)thing.HitPoints <= ((float)thing.MaxHitPoints / 2))
+            if (!Sandy_RPG_Settings.apparelHealthbar)
             {
-                Rect tattered = rect5;
-                GUI.DrawTexture(tattered, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tattered"));
+                Rect rect5 = rect.ContractedBy(2f);
+                float num2 = rect5.height * ((float)thing.HitPoints / (float)thing.MaxHitPoints);
+                rect5.yMin = rect5.yMax - num2;
+                rect5.height = num2;
+
+                if ((float)thing.HitPoints <= ((float)thing.MaxHitPoints / 2))
+                {
+                    //Rect tattered = rect5;
+                    GUI.DrawTexture(rect5, Sandy_Utility.texTattered);
+                }
+                else
+                {
+                    GUI.DrawTexture(rect5, Sandy_Utility.texNotTattered);
+                }
             }
+            //
             if (thing.def.DrawMatSingle != null && thing.def.DrawMatSingle.mainTexture != null)
             {
                 Rect rect1 = new Rect(rect.x + 4f, rect.y + 4f, rect.width - 8f, rect.height - 8f);
@@ -434,7 +441,7 @@ namespace Sandy_Detailed_RPG_Inventory
                     }
                     Color color = flag ? Color.grey : Color.white;
                     Color mouseoverColor = flag ? color : GenUI.MouseoverColor;
-                    if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true), color, mouseoverColor, !flag) && !flag)
+                    if (Widgets.ButtonImage(rect2, Sandy_Utility.texButtonDrop, color, mouseoverColor, !flag) && !flag)
                     {
                         SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
                         this.InterfaceDrop(thing);
@@ -446,6 +453,17 @@ namespace Sandy_Detailed_RPG_Inventory
             else
             {
                 GUI.color = Color.white;
+                if (Sandy_RPG_Settings.apparelHealthbar)
+                {
+                    var pct = (float)thing.HitPoints / thing.MaxHitPoints;
+                    Rect rect5 = rect.ContractedBy(4f);
+                    rect5.xMin += rect.width - 11f;
+                    //GUI.DrawTexture(rect5, Sandy_Utility.texBlack);
+                    rect5.yMin = rect5.yMax - rect5.height * pct;
+                    if (thing.HitPoints < thing.MaxHitPoints * 0.2f) GUI.DrawTexture(rect5, Sandy_Utility.texRed);
+                    else if(thing.HitPoints < thing.MaxHitPoints * 0.5f) GUI.DrawTexture(rect5, Sandy_Utility.texYellow);
+                    else GUI.DrawTexture(rect5, Sandy_Utility.texBar);
+                }
             }
             Apparel apparel2 = thing as Apparel;
             if (apparel2 != null && this.SelPawnForGear.outfits != null)
@@ -453,14 +471,14 @@ namespace Sandy_Detailed_RPG_Inventory
                 if (apparel2.WornByCorpse)
                 {
                     Rect rect3 = new Rect(rect.xMax - 20f, rect.yMax - 20f, 20f, 20f);
-                    GUI.DrawTexture(rect3, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tainted_Icon", true));
+                    GUI.DrawTexture(rect3, Sandy_Utility.texTainted);
                     TooltipHandler.TipRegion(rect3, "WasWornByCorpse".Translate());
                 }
                 if (this.SelPawnForGear.outfits.forcedHandler.IsForced(apparel2))
                 {
                     text += ", " + "ApparelForcedLower".Translate();
                     Rect rect4 = new Rect(rect.x, rect.yMax - 20f, 20f, 20f);
-                    GUI.DrawTexture(rect4, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true));
+                    GUI.DrawTexture(rect4, Sandy_Utility.texForced);
                     TooltipHandler.TipRegion(rect4, "ForcedApparel".Translate());
                 }
             }
@@ -469,7 +487,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 if (this.SelPawnForGear.story.traits.HasTrait(TraitDefOf.Brawler) && thing.def.IsRangedWeapon)
                 {
                     Rect rect6 = new Rect(rect.x, rect.yMax - 20f, 20f, 20f);
-                    GUI.DrawTexture(rect6, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Forced_Icon", true));
+                    GUI.DrawTexture(rect6, Sandy_Utility.texForced);
                     TooltipHandler.TipRegion(rect6, "BrawlerHasRangedWeapon".Translate());
                 }
             }
@@ -522,7 +540,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 return;
             }
             Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
-            GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Sandy_MassCarried_Icon", true));
+            GUI.DrawTexture(rect1, Sandy_Utility.texMass);
             TooltipHandler.TipRegion(rect1, "SandyMassCarried".Translate());
             float num = MassUtility.GearAndInventoryMass(this.SelPawnForGear);
             float num2 = MassUtility.Capacity(this.SelPawnForGear, null);
@@ -540,7 +558,7 @@ namespace Sandy_Detailed_RPG_Inventory
             //
             float curwidth = Sandy_RPG_Settings.displayTempOnTheSameLine ? width / 2f : width;
             Rect rect1 = new Rect(left, top, statIconSize, statIconSize);
-            GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Min_Temperature", true));
+            GUI.DrawTexture(rect1, Sandy_Utility.texMinTemp);
             TooltipHandler.TipRegion(rect1, StatDefOf.ComfyTemperatureMin.label);
             float statValue = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMin, true);
             Rect rect2 = new Rect(left + stdThingIconSize + 4f, top + (stdThingRowHeight - statIconSize) / 2f, curwidth - stdThingIconSize - 4f, statIconSize);
@@ -552,7 +570,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 top += stdThingRowHeight;
             //
             rect1 = new Rect(left, top, statIconSize, statIconSize);
-            GUI.DrawTexture(rect1, ContentFinder<Texture2D>.Get("UI/Icons/Max_Temperature", true));
+            GUI.DrawTexture(rect1, Sandy_Utility.texMaxTemp);
             TooltipHandler.TipRegion(rect1, StatDefOf.ComfyTemperatureMax.label);
             float statValue2 = this.SelPawnForGear.GetStatValue(StatDefOf.ComfyTemperatureMax, true);
             rect2 = new Rect(left + stdThingIconSize, top + (stdThingRowHeight - statIconSize) / 2f, curwidth - stdThingIconSize, statIconSize);
@@ -594,7 +612,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 }
                 Color color = flag ? Color.grey : Color.white;
                 Color mouseoverColor = flag ? color : GenUI.MouseoverColor;
-                if (Widgets.ButtonImage(rect2, ContentFinder<Texture2D>.Get("UI/Buttons/Drop", true), color, mouseoverColor, !flag) && !flag)
+                if (Widgets.ButtonImage(rect2, Sandy_Utility.texButtonDrop, color, mouseoverColor, !flag) && !flag)
                 {
                     SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
                     this.InterfaceDrop(thing);
@@ -607,7 +625,7 @@ namespace Sandy_Detailed_RPG_Inventory
                 {
                     Rect rect3 = new Rect(rect.width - statIconSize, y, statIconSize, statIconSize);
                     TooltipHandler.TipRegionByKey(rect3, "ConsumeThing", thing.LabelNoCount, thing);
-                    if (Widgets.ButtonImage(rect3, ContentFinder<Texture2D>.Get("UI/Buttons/Ingest", true), true))
+                    if (Widgets.ButtonImage(rect3, Sandy_Utility.texButtonIngest, true))
                     {
                         SoundDefOf.Tick_High.PlayOneShotOnCamera(null);
                         FoodUtility.IngestFromInventoryNow(this.SelPawnForGear, thing);
@@ -806,11 +824,11 @@ namespace Sandy_Detailed_RPG_Inventory
             if (showArmor)
             {
                 this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Sharp, "ArmorSharp".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorSharp_Icon", true));
+                                         Sandy_Utility.texArmorSharp);
                 this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Blunt, "ArmorBlunt".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorBlunt_Icon", true));
+                                         Sandy_Utility.texArmorBlunt);
                 this.TryDrawOverallArmor1(ref top, left, statPanelWidth, StatDefOf.ArmorRating_Heat, "ArmorHeat".Translate(),
-                                         ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true));
+                                         Sandy_Utility.texArmorHeat);
             }
             MODIntegration.DrawStats1(this, ref top, left, showArmor);
         }
