@@ -17,6 +17,14 @@ namespace Sandy_Detailed_RPG_Inventory
         public static Dictionary<ThingDef, bool> simplifiedView = null;
         public static Sandy_RPG_Settings instance { get { return LoadedModManager.GetMod<Sandy_Detailed_RPG_Inventory>().GetSettings<Sandy_RPG_Settings>(); }  }
         public static bool apparelHealthbar = false;
+        public static bool useColorCoding = true;
+        public static Color colLegendary = new Color(1f, 0.5f, 0f);
+        public static Color colMasterwork = Color.yellow;
+        public static Color colExcellent = new Color(1f, 0f, 1f);
+        public static Color colGood = Color.green;
+        public static Color colNormal = Color.white;
+        public static Color colPoor = Color.gray;
+        public static Color colAwful = Color.gray;
 
         public override void ExposeData()
         {
@@ -24,8 +32,16 @@ namespace Sandy_Detailed_RPG_Inventory
             Scribe_Values.Look(ref rpgTabHeight, "rpgTabHeight", 500f);
             Scribe_Values.Look(ref rpgTabWidth, "rpgTabWidth", 706f);
             Scribe_Values.Look(ref displayAllSlots, "displayAllSlots", false);
-            Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", false);
-            Scribe_Values.Look(ref apparelHealthbar, "apparelHealthbar", false);
+            Scribe_Values.Look(ref displayTempOnTheSameLine, "displayTempOnTheSameLine", true);
+            Scribe_Values.Look(ref apparelHealthbar, "apparelHealthbar", true);
+            Scribe_Values.Look(ref useColorCoding, "useColorCoding", true);
+            Scribe_Values.Look(ref colLegendary, "colLegendary", new Color(1f, 0.5f, 0f));
+            Scribe_Values.Look(ref colMasterwork, "colMasterwork", Color.yellow);
+            Scribe_Values.Look(ref colExcellent, "colExcellent", new Color(1f, 0f, 1f));
+            Scribe_Values.Look(ref colGood, "colGood", Color.green);
+            Scribe_Values.Look(ref colNormal, "colNormal", Color.white);
+            Scribe_Values.Look(ref colPoor, "colPoor", Color.gray);
+            Scribe_Values.Look(ref colAwful, "colAwful", Color.gray);
             //
             if (simplifiedView == null)
                 return;
@@ -101,6 +117,18 @@ namespace Sandy_Detailed_RPG_Inventory
             listingStandard.CheckboxLabeled("RPG_Dispaly_Temp_On_The_Same_Line_Label".Translate(), ref Sandy_RPG_Settings.displayTempOnTheSameLine, "RPG_Dispaly_Temp_On_The_Same_Line_Note".Translate());
             listingStandard.CheckboxLabeled("RPG_Display_Apparel_Healthbar_Label".Translate(), ref Sandy_RPG_Settings.apparelHealthbar, "RPG_Display_Apparel_Healthbar_Note".Translate());
 
+            listingStandard.CheckboxLabeled("RPG_Color_Codes_Label".Translate(), ref Sandy_RPG_Settings.useColorCoding, "RPG_Color_Codes_Note".Translate());
+            if (Sandy_RPG_Settings.useColorCoding)
+            {
+                listingStandard.ColorSelector("QualityCategory_Legendary".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colLegendary, c => Sandy_RPG_Settings.colLegendary = c);
+                listingStandard.ColorSelector("QualityCategory_Masterwork".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colMasterwork, c => Sandy_RPG_Settings.colMasterwork = c);
+                listingStandard.ColorSelector("QualityCategory_Excellent".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colExcellent, c => Sandy_RPG_Settings.colExcellent = c);
+                listingStandard.ColorSelector("QualityCategory_Good".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colGood, c => Sandy_RPG_Settings.colGood = c);
+                listingStandard.ColorSelector("QualityCategory_Normal".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colNormal, c => Sandy_RPG_Settings.colNormal = c);
+                listingStandard.ColorSelector("QualityCategory_Poor".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colPoor, c => Sandy_RPG_Settings.colPoor = c);
+                listingStandard.ColorSelector("QualityCategory_Awful".Translate().CapitalizeFirst(), Sandy_RPG_Settings.colAwful, c => Sandy_RPG_Settings.colAwful = c);
+            }
+
             listingStandard.End();
             base.DoSettingsWindowContents(inRect);
         }
@@ -144,6 +172,7 @@ namespace Sandy_Detailed_RPG_Inventory
     [StaticConstructorOnStartup]
     public static class Sandy_Utility
     {
+        public static readonly Texture2D texGreen = SolidColorMaterials.NewSolidColorTexture(Color.green);
         public static readonly Texture2D texBar = SolidColorMaterials.NewSolidColorTexture(new Color(0.2f, 0.8f, 0.85f));
         public static readonly Texture2D texYellow = SolidColorMaterials.NewSolidColorTexture(Color.yellow);
         public static readonly Texture2D texRed = SolidColorMaterials.NewSolidColorTexture(Color.red);
@@ -161,15 +190,7 @@ namespace Sandy_Detailed_RPG_Inventory
         public static readonly Texture2D texArmorHeat = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_ArmorHeat_Icon", true);
         public static readonly Texture2D texTattered = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Tattered");
         public static readonly Texture2D texNotTattered = ContentFinder<Texture2D>.Get("UI/Icons/Sandy_Not_Tattered");
-
-        public static readonly string frameFolder = "AltFrames";
-        public static readonly Texture2D texLegendary = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Legendary", true);
-        public static readonly Texture2D texMasterwork = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Masterwork", true);
-        public static readonly Texture2D texExcellent = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Excellent", true);
-        public static readonly Texture2D texGood = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Good", true);
-        public static readonly Texture2D texNormal = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Normal", true);
-        public static readonly Texture2D texPoor = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Poor", true);
-        public static readonly Texture2D texAwful = ContentFinder<Texture2D>.Get("UI/" + frameFolder + "/RPG_Awful", true);
+        public static readonly Texture2D texFrame = ContentFinder<Texture2D>.Get("UI/Frames/RPG_Frame", true);
 
         public static bool CustomCheckboxLabeled(Listing listing, string label, ref bool checkOn, string tooltip = null)
         {
@@ -211,6 +232,34 @@ namespace Sandy_Detailed_RPG_Inventory
             else image = Widgets.CheckboxOffTex;
             GUI.DrawTexture(new Rect(rect.x + rect.width - 24f, rect.y, 24f, 24f), image);
             Text.Anchor = anchor;
+        }
+
+        public static void DrawTexture(this Texture tex, Rect rect,  Color baseColor)
+        {
+            var tmp = GUI.color;
+            GUI.color = baseColor;
+            GUI.DrawTexture(rect, tex);
+            GUI.color = tmp;
+        }
+
+        public static void ColorSelector(this Listing_Standard listing, string label, Color startingColor, Action<Color> action)
+        {
+            if (listing.ButtonTextLabeled(label, "RPG_Colors_Button_Label".Translate(), startingColor))
+            {
+                Find.WindowStack.Add(new Dialog_ColorPicker(startingColor, action, label));
+            }
+        }
+
+        public static bool ButtonTextLabeled(this Listing_Standard listing, string label, string buttonLabel, Color LabelColor)
+        {
+            var tmp = GUI.color;
+            GUI.color = LabelColor;
+            Rect rect = listing.GetRect(30f);
+            Widgets.Label(rect.LeftHalf(), label);
+            GUI.color = tmp;
+            bool result = Widgets.ButtonText(rect.RightHalf(), buttonLabel, true, true, true);
+            listing.Gap(listing.verticalSpacing);
+            return result;
         }
     }
 }

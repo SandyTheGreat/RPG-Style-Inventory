@@ -330,58 +330,53 @@ namespace Sandy_Detailed_RPG_Inventory
 
         private void DrawThingRow1(Rect rect, Thing thing, bool inventory = false, bool equipment = false)
         {
-            //GUI.DrawTexture(rect, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
-            QualityCategory c;
-            if (thing.TryGetQuality(out c))
+            GUI.DrawTexture(rect, Sandy_Utility.texBG);
+            if (Sandy_RPG_Settings.useColorCoding)
             {
-                switch (c)
+                QualityCategory c;
+                if (thing.TryGetQuality(out c))
                 {
-                    case QualityCategory.Legendary:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texLegendary);
-                            break;
-                        }
-                    case QualityCategory.Masterwork:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texMasterwork);
-                            break;
-                        }
-                    case QualityCategory.Excellent:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texExcellent);
-                            break;
-                        }
-                    case QualityCategory.Good:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texGood);
-                            break;
-                        }
-                    case QualityCategory.Normal:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texNormal);
-                            break;
-                        }
-                    case QualityCategory.Poor:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texPoor);
-                            break;
-                        }
-                    case QualityCategory.Awful:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texAwful);
-                            break;
-                        }
-                    default:
-                        {
-                            GUI.DrawTexture(rect, Sandy_Utility.texBG);
-                            break;
-                        }
+                    switch (c)
+                    {
+                        case QualityCategory.Legendary:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colLegendary);
+                                break;
+                            }
+                        case QualityCategory.Masterwork:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colMasterwork);
+                                break;
+                            }
+                        case QualityCategory.Excellent:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colExcellent);
+                                break;
+                            }
+                        case QualityCategory.Good:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colGood);
+                                break;
+                            }
+                        case QualityCategory.Normal:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colNormal);
+                                break;
+                            }
+                        case QualityCategory.Poor:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colPoor);
+                                break;
+                            }
+                        case QualityCategory.Awful:
+                            {
+                                Sandy_Utility.texFrame.DrawTexture(rect, Sandy_RPG_Settings.colAwful);
+                                break;
+                            }
+                    }
                 }
             }
-            else
-            {
-                GUI.DrawTexture(rect, Sandy_Utility.texBG);
-            }
+
             string text = thing.LabelCap;
             if (!Sandy_RPG_Settings.apparelHealthbar)
             {
@@ -453,7 +448,7 @@ namespace Sandy_Detailed_RPG_Inventory
             else
             {
                 GUI.color = Color.white;
-                if (Sandy_RPG_Settings.apparelHealthbar)
+                if (Sandy_RPG_Settings.apparelHealthbar && thing.def.useHitPoints)
                 {
                     var pct = (float)thing.HitPoints / thing.MaxHitPoints;
                     Rect rect5 = rect.ContractedBy(4f);
@@ -462,6 +457,7 @@ namespace Sandy_Detailed_RPG_Inventory
                     rect5.yMin = rect5.yMax - rect5.height * pct;
                     if (thing.HitPoints < thing.MaxHitPoints * 0.2f) GUI.DrawTexture(rect5, Sandy_Utility.texRed);
                     else if(thing.HitPoints < thing.MaxHitPoints * 0.5f) GUI.DrawTexture(rect5, Sandy_Utility.texYellow);
+                    else if (thing.HitPoints == thing.MaxHitPoints) GUI.DrawTexture(rect5, Sandy_Utility.texGreen);
                     else GUI.DrawTexture(rect5, Sandy_Utility.texBar);
                 }
             }
