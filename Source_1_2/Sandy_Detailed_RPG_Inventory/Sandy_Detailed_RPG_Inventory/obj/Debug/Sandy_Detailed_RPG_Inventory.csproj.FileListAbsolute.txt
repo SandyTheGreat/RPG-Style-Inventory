@@ -1,4 +1,0 @@
-E:\Rimworld\Modding\[1.2] RPG Style Inventory [V5.0]\RPG Style Inventory\Assemblies\Sandy_Detailed_RPG_Inventory.dll
-E:\Rimworld\Modding\[1.2] RPG Style Inventory [V5.0]\RPG Style Inventory\Source_1_2\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csproj.CoreCompileInputs.cache
-E:\Rimworld\Modding\[1.2] RPG Style Inventory [V5.0]\RPG Style Inventory\Source_1_2\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.dll
-E:\Rimworld\Modding\[1.2] RPG Style Inventory [V5.0]\RPG Style Inventory\Source_1_2\Sandy_Detailed_RPG_Inventory\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csprojAssemblyReference.cache
