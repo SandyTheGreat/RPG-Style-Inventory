@@ -1,5 +1,0 @@
-F:\Modding\[1.0] RPG Style Inventory [V4.0]\[1.0] RPG Style Inventory\Assemblies\Sandy_Detailed_RPG_Inventory.dll
-F:\Modding\[1.0] RPG Style Inventory [V4.0]\[1.0] RPG Style Inventory\Source\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csprojResolveAssemblyReference.cache
-F:\Modding\[1.0] RPG Style Inventory [V4.0]\[1.0] RPG Style Inventory\Source\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.dll
-D:\Santhosh\Modding\RPG Style Inventory\Assemblies\Sandy_Detailed_RPG_Inventory.dll
-D:\Santhosh\Modding\RPG Style Inventory\Source\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.dll
