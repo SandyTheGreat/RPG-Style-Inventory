@@ -2,13 +2,16 @@
 <LanguageData>
 
   <SandyMassCarried>當前負重</SandyMassCarried>
-  <SandyMassValue> {0} / {1} 公斤</SandyMassValue>
+  <SandyMassValue> {0} / {1} kg</SandyMassValue>
   <Sandy_ViewList>顯示列表</Sandy_ViewList>
-  <Sandy_Head>頭 Overhead</Sandy_Head>
-  <Sandy_TorsoMiddle>軀幹 Middle</Sandy_TorsoMiddle>
-  <Sandy_TorsoOnSkin>軀幹 OnSkin</Sandy_TorsoOnSkin>
-  <Sandy_TorsoShell>軀幹 Shell</Sandy_TorsoShell>
-  <Sandy_Belt>帶</Sandy_Belt>
-  <Sandy_Pants>腿 OnSkin</Sandy_Pants>
+  <Sandy_Head>頭部</Sandy_Head>
+  <Sandy_TorsoMiddle>軀幹（夾層）</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>軀幹（貼身）</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>軀幹（外套）</Sandy_TorsoShell>
+  <Sandy_Belt>配件</Sandy_Belt>
+  <Sandy_Pants>褲子</Sandy_Pants>
+  <RPG_Inventory_Width>裝備界面——寬度</RPG_Inventory_Width>
+  <RPG_Inventory_Height>裝備界面——高度</RPG_Inventory_Height>
+  <RPG_Style_Inventory_Title>RPG Style Inventory</RPG_Style_Inventory_Title>
 
 </LanguageData>
