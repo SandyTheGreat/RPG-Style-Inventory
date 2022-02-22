@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <LanguageData>
 
-  <SandyMassCarried>當前負重</SandyMassCarried>
+  <SandyMassCarried>当前负重</SandyMassCarried>
   <SandyMassValue> {0} / {1} kg</SandyMassValue>
-  <Sandy_ViewList>顯示列表</Sandy_ViewList>
-  <Sandy_Head>頭部</Sandy_Head>
-  <Sandy_TorsoMiddle>軀幹（夾層）</Sandy_TorsoMiddle>
-  <Sandy_TorsoOnSkin>軀幹（貼身）</Sandy_TorsoOnSkin>
-  <Sandy_TorsoShell>軀幹（外套）</Sandy_TorsoShell>
+  <Sandy_ViewList>显示列表</Sandy_ViewList>
+  <Sandy_Head>头部</Sandy_Head>
+  <Sandy_TorsoMiddle>躯干（夹层）</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>躯干（贴身）</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>躯干（外套）</Sandy_TorsoShell>
   <Sandy_Belt>配件</Sandy_Belt>
-  <Sandy_Pants>褲子</Sandy_Pants>
-  <RPG_Inventory_Width>裝備界面——寬度</RPG_Inventory_Width>
-  <RPG_Inventory_Height>裝備界面——高度</RPG_Inventory_Height>
+  <Sandy_Pants>裤子</Sandy_Pants>
+  <RPG_Inventory_Width>装备界面——宽度</RPG_Inventory_Width>
+  <RPG_Inventory_Height>装备界面——高度</RPG_Inventory_Height>
   <RPG_Style_Inventory_Title>RPG Style Inventory</RPG_Style_Inventory_Title>
 
 </LanguageData>
