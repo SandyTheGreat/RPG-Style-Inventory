@@ -459,16 +459,16 @@ namespace Sandy_Detailed_RPG_Inventory
 
 						//Feet - Middle
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Feet) && !a.layers.Contains(ApparelLayerDefOf.Shell)
-						&& a.layers.Contains(ApparelLayerDefOf.Middle) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)):
+						&& (a.layers.Contains(ApparelLayerDefOf.Middle) || a.layers.Contains(Sandy_Gear_DefOf.Middle_A)) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)):
 							Rect newRectFm = new Rect(158f, 370f, 64f, 64f);
 							//GUI.DrawTexture(newRectFm, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectFm, current2, false);
 							break;
 
 						//Feet - OnSkin
-						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Feet) && a.layers.Contains(ApparelLayerDefOf.OnSkin)
-						&& !a.layers.Contains(ApparelLayerDefOf.Shell) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)
-						&& !a.layers.Contains(ApparelLayerDefOf.Middle)):
+						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Feet) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)
+						&& (a.layers.Contains(ApparelLayerDefOf.OnSkin) || a.layers.Contains(Sandy_Gear_DefOf.OnSkin_A))
+						&& !a.layers.Contains(ApparelLayerDefOf.Shell) && !a.layers.Contains(ApparelLayerDefOf.Middle)):
 							Rect newRectFo = new Rect(232f, 370f, 64f, 64f);
 							//GUI.DrawTexture(newRectFo, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectFo, current2, false);
@@ -476,7 +476,7 @@ namespace Sandy_Detailed_RPG_Inventory
 
 						//Feet - Shell
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Feet) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Legs)
-						&& (a.layers.Contains(ApparelLayerDefOf.Shell) || a.layers.Contains(ApparelLayerDefOf.Overhead))):
+						&& (a.layers.Contains(ApparelLayerDefOf.Shell) || a.layers.Contains(Sandy_Gear_DefOf.Shell_A) || a.layers.Contains(ApparelLayerDefOf.Overhead))):
 							Rect newRectFs = new Rect(306f, 370f, 64f, 64f);
 							//GUI.DrawTexture(newRectFs, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectFs, current2, false);
@@ -484,7 +484,7 @@ namespace Sandy_Detailed_RPG_Inventory
 
 						//Hands - OnSkin
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Hands) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Torso)
-						&& a.layers.Contains(ApparelLayerDefOf.OnSkin) && !a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Shoulders)
+						&& (a.layers.Contains(ApparelLayerDefOf.OnSkin) || a.layers.Contains(Sandy_Gear_DefOf.OnSkin_A)) && !a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Shoulders)
 						&& !a.layers.Contains(ApparelLayerDefOf.Middle) && !a.layers.Contains(ApparelLayerDefOf.Shell)):
 							Rect newRectHo = new Rect(454f, 74f, 64f, 64f);
 							//GUI.DrawTexture(newRectHo, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
@@ -493,8 +493,8 @@ namespace Sandy_Detailed_RPG_Inventory
 
 						//Hands - Middle
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Hands) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Torso)
-						&& a.layers.Contains(ApparelLayerDefOf.Middle) && !a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Shoulders)
-						&& !a.layers.Contains(ApparelLayerDefOf.Shell)):
+						&& (a.layers.Contains(ApparelLayerDefOf.Middle) || a.layers.Contains(Sandy_Gear_DefOf.Middle_A))
+						&& !a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Shoulders) && !a.layers.Contains(ApparelLayerDefOf.Shell)):
 							Rect newRectHm = new Rect(454f, 148f, 64f, 64f);
 							//GUI.DrawTexture(newRectHm, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectHm, current2, false);
@@ -502,7 +502,7 @@ namespace Sandy_Detailed_RPG_Inventory
 
 						//Hands - Shell
 						case ApparelProperties a when (a.bodyPartGroups.Contains(Sandy_Gear_DefOf.Hands) && !a.bodyPartGroups.Contains(BodyPartGroupDefOf.Torso)
-						&& (a.layers.Contains(ApparelLayerDefOf.Shell) || a.layers.Contains(ApparelLayerDefOf.Overhead))):
+						&& (a.layers.Contains(ApparelLayerDefOf.Shell) || a.layers.Contains(Sandy_Gear_DefOf.Shell_A) || a.layers.Contains(ApparelLayerDefOf.Overhead))):
 							Rect newRectHs = new Rect(454f, 222f, 64f, 64f);
 							//GUI.DrawTexture(newRectHs, ContentFinder<Texture2D>.Get("UI/Widgets/DesButBG", true));
 							this.DrawThingRow1(newRectHs, current2, false);

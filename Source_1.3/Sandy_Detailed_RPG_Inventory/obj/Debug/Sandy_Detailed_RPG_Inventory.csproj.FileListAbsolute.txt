@@ -3,3 +3,4 @@ C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RPG Style Inventory\
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RPG Style Inventory\Source_1.3\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csproj.CoreCompileInputs.cache
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RPG Style Inventory\Source_1.3\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.dll
 C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RPG Style Inventory\Source_1.3\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.pdb
+C:\Program Files (x86)\Steam\steamapps\common\RimWorld\Mods\RPG Style Inventory\Source_1.3\Sandy_Detailed_RPG_Inventory\obj\Debug\Sandy_Detailed_RPG_Inventory.csproj.AssemblyReference.cache

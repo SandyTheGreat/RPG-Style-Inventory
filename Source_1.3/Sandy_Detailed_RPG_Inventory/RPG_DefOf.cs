@@ -30,5 +30,12 @@ namespace Sandy_Detailed_RPG_Inventory
 
         //VFE
         public static ApparelLayerDef VFEC_OuterShell;
+
+        //Yayo Combat 3 (Adopted)
+        public static ApparelLayerDef OnSkin_A;
+        public static ApparelLayerDef Middle_A;
+        public static ApparelLayerDef Shell_A;
+        public static ApparelLayerDef Belt_A;
+        public static ApparelLayerDef Overhead_A;
     }
 }
