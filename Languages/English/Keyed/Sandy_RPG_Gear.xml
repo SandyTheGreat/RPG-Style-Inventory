@@ -15,5 +15,16 @@
   <RPG_Inventory_Height>Gear Tab - Height</RPG_Inventory_Height>
   <RPG_Style_Inventory_Title>RPG Style Inventory</RPG_Style_Inventory_Title>
   <RPG_Style_Inventory_ArmorHarmony>Magic Defense</RPG_Style_Inventory_ArmorHarmony>
+  
+  <RPG_Inventory_Color_Setting>QUALITY COLOR SETTINGS</RPG_Inventory_Color_Setting>
+  <RPG_Inventory_Color_Selector>Select</RPG_Inventory_Color_Selector>
+  
+  <RPG_Inventory_Legendary>Legendary</RPG_Inventory_Legendary>
+  <RPG_Inventory_Masterwork>Masterwork</RPG_Inventory_Masterwork>
+  <RPG_Inventory_Excellent>Excellent</RPG_Inventory_Excellent>
+  <RPG_Inventory_Good>Good</RPG_Inventory_Good>
+  <RPG_Inventory_Normal>Normal</RPG_Inventory_Normal>
+  <RPG_Inventory_Poor>Poor</RPG_Inventory_Poor>
+  <RPG_Inventory_Awful>Awful</RPG_Inventory_Awful>
 
 </LanguageData>
