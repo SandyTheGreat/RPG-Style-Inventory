@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<LanguageData>
+
+  <SandyMassCarried>當前負重</SandyMassCarried>
+  <SandyMassValue> {0} / {1} 公斤</SandyMassValue>
+  <Sandy_ViewList>顯示清單</Sandy_ViewList>
+  <Sandy_Head>頭部裝備</Sandy_Head>
+  <Sandy_TorsoMiddle>軀幹中段</Sandy_TorsoMiddle>
+  <Sandy_TorsoOnSkin>軀幹貼身</Sandy_TorsoOnSkin>
+  <Sandy_TorsoShell>軀幹外裝</Sandy_TorsoShell>
+  <Sandy_Belt>腰帶</Sandy_Belt>
+  <Sandy_Pants>腿部貼身</Sandy_Pants>
+  <RPG_Inventory_Width>裝備欄寬度</RPG_Inventory_Width>
+  <RPG_Inventory_Height>裝備欄高度</RPG_Inventory_Height>
+  <RPG_Style_Inventory_Title>RPG風格裝備欄</RPG_Style_Inventory_Title>
+  <RPG_Style_Inventory_ArmorHarmony>魔法防禦</RPG_Style_Inventory_ArmorHarmony>
+
+  <RPG_Inventory_Color_Setting>品質顏色設置</RPG_Inventory_Color_Setting>
+  <RPG_Inventory_Color_Selector>選擇</RPG_Inventory_Color_Selector>
+
+  <RPG_Inventory_Legendary>傳奇</RPG_Inventory_Legendary>
+  <RPG_Inventory_Masterwork>大師</RPG_Inventory_Masterwork>
+  <RPG_Inventory_Excellent>優秀</RPG_Inventory_Excellent>
+  <RPG_Inventory_Good>良好</RPG_Inventory_Good>
+  <RPG_Inventory_Normal>普通</RPG_Inventory_Normal>
+  <RPG_Inventory_Poor>劣質</RPG_Inventory_Poor>
+  <RPG_Inventory_Awful>糟糕</RPG_Inventory_Awful>
+
+</LanguageData>
