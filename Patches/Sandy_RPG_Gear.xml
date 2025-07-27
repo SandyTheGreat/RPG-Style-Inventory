@@ -2,11 +2,22 @@
 
 <Patch>
 
-	<Operation Class="PatchOperationReplace">
-		<xpath>Defs/ThingDef[thingClass="Pawn"]/inspectorTabs/li[text()='ITab_Pawn_Gear']</xpath>
-		<value>
+	<Operation Class="PatchOperationFindMod">
+		<mods>
+			<li>Combat Extended</li>
+		</mods>
+		<match Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[thingClass="Pawn"]/inspectorTabs/li[text()='CombatExtended.ITab_Inventory']</xpath>
+			<value>
 				<li>Sandy_Detailed_RPG_Inventory.Sandy_Detailed_RPG_GearTab</li>
-		</value>
-	</Operation>
+			</value>
+		</match>
+		<nomatch Class="PatchOperationReplace">
+			<xpath>Defs/ThingDef[thingClass="Pawn"]/inspectorTabs/li[text()='ITab_Pawn_Gear']</xpath>
+			<value>
+				<li>Sandy_Detailed_RPG_Inventory.Sandy_Detailed_RPG_GearTab</li>
+			</value>
+		</nomatch>
+   </Operation>
 
 </Patch>
